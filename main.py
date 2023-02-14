@@ -1,7 +1,7 @@
 
 import pygame
 from classes import*
-import variaveis
+from variaveis import *
 from constantes import*
 
 def inicializa():
@@ -15,12 +15,24 @@ def inicializa():
     alvo = Alvo()
     grupo_alvo = pygame.sprite.Group()
     grupo_alvo.add(alvo)
+    #Criando o objeto  altera_velocidade e adicionando no grupo de sprite altera_vel_grupo
+    altera_vel = Altera_vel()
+    altera_vel_grupo= pygame.sprite.Group()
+    altera_vel_grupo.add(altera_vel)
+    #Criando o objeto  planeta e adicionando no grupo de sprite planeta_grupo
+    planeta = Planeta(raio_planeta, posicao_planeta)
+    planeta_grupo= pygame.sprite.Group()
+    planeta_grupo.add(planeta)
+
+
+
+
 
     assets = {
     }
 
     state = {
-        "estrela": estrelas, "alvo":grupo_alvo
+        "estrela": estrelas, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo, "planeta":planeta_grupo
       
     }
     return window, assets, state
@@ -34,6 +46,9 @@ def desenha(window: pygame.Surface, assets, state):
     '''Função utilizada para desenhar todos os sprites na tela'''
     state['estrela'].draw(window)
     state['alvo'].draw(window)
+    state['altera_vel'].draw(window)
+    state['planeta'].draw(window)
+
     pygame.display.update()
 
 def atualiza_estado(state):

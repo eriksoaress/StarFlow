@@ -6,7 +6,7 @@ from constantes import*
 
 def inicializa():
     '''Função que inicializa todos os assets e states do jogo'''
-    window = pygame.display.set_mode((WIDTH, HEIGHT), vsync=True, flags=pygame.SCALED)
+    window = pygame.display.set_mode((WIDTH, HEIGHT), flags=pygame.SCALED)
     #Criando o objeto estrela e adicionando no grupo de sprite estrelas
     estrela = Estrela()
     estrelas = pygame.sprite.Group()
@@ -32,7 +32,7 @@ def inicializa():
     }
 
     state = {
-        "estrela": estrelas, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo, "planeta":planeta_grupo
+        "estrela": estrelas,"estrela_obj": estrela, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo, "planeta":planeta_grupo
       
     }
     return window, assets, state
@@ -44,6 +44,7 @@ def finaliza():
 
 def desenha(window: pygame.Surface, assets, state):
     '''Função utilizada para desenhar todos os sprites na tela'''
+    window.fill((0,0,0))
     state['estrela'].draw(window)
     state['alvo'].draw(window)
     state['altera_vel'].draw(window)
@@ -53,13 +54,23 @@ def desenha(window: pygame.Surface, assets, state):
 
 def atualiza_estado(state):
     '''Função utilizada para atualizar os estados do jogo'''
-
+    direita = True
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
             return False
-        if ev.type == pygame.MOUSEBUTTONDOWN:
-            '''caso o jogador tenha pressionado o botão do mouse'''
-            return False
+        keys=pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            direita = False
+            '''caso o jogador tenha pressionado o botão seta pra cima'''
+            state['estrela_obj'].update(direita)
+        if keys[pygame.K_RIGHT]:
+            '''caso o jogador tenha pressionado o botão seta pra cima'''
+            state['estrela_obj'].update(direita)
+
+            
+    
+    
+        
 
     return True
 

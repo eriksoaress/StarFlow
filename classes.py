@@ -15,8 +15,11 @@ class Estrela(pygame.sprite.Sprite):
         '''Classe para criar a estrela, o objeto que disparará no alvo'''
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.Surface((50,50))
-            self.image.fill(RED)
+            self.image = pygame.image.load("et.png")
+            self.image = pygame.transform.scale(self.image, (50,50))
+        
+           
+           
           
             self.rect = self.image.get_rect()
             self.rect.centerx = WIDTH/2
@@ -26,9 +29,26 @@ class Estrela(pygame.sprite.Sprite):
             
           
             
-        def update(self):
+        def update(self, direita):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
-            pass
+            if direita:
+               
+                self.image = pygame.transform.rotate(self.image, angle=-10)
+                self.rect = self.image.get_rect(center=self.rect.center)
+                self.rect.centerx = WIDTH/2
+                self.rect.centery = HEIGHT - 50
+            else:
+                
+                
+                self.image = pygame.transform.rotate(self.image, angle=10)
+                self.rect = self.image.get_rect(center=self.rect.center)
+                self.rect.centerx = WIDTH/2
+                self.rect.centery = HEIGHT - 50
+
+    
+        
+       
+            
 
 
 
@@ -89,3 +109,4 @@ class Planeta(pygame.sprite.Sprite):
         def update(self):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
             pass
+    

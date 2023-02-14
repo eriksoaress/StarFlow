@@ -1,56 +1,46 @@
-import numpy as np
+
 import pygame
-import math
-import random
+from classes import*
+import variaveis
+from constantes import*
 
-pygame.init()
+def inicializa():
+    '''Função que inicializa todos os assets e states do jogo'''
 
-# Tamanho da tela e definição do FPS
-screen = pygame.display.set_mode((1280, 720))
-clock = pygame.time.Clock()
-FPS = 60  # Frames per Second
+    assets = {
+    }
 
-COR_PERSONAGEM = (30, 200, 20)
-
-
-# Inicializar posicoes
-s0 = np.array([615, 660])
-v0 = np.array([0, 0])
-rect_power = np.array([20, 80])
-
-v = v0
-s = s0
-
-# Personagem
-personagem = pygame.Surface((50, 50))  # Tamanho do personagem
-personagem.fill(COR_PERSONAGEM)  # Cor do personagem
+    state = {
+      
+    }
+    return window, assets, state
 
 
+def finaliza():
+    '''Função utilizada para fechar o pygame'''
+    pygame.quit()
 
-rodando = True
-while rodando:
-    # Capturar eventos
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            rodando = False
-
-
-    # Controlar frame rate
-    clock.tick(FPS)
-
-    # Processar posicoes
-
-    # Desenhar fundo
-    screen.fill((0,0,0))
-
-    # Desenhar personagem
-    rect = pygame.Rect(s, (50,50))  # First tuple is position, second is size.
-    screen.blit(personagem, rect)
-   
-
-
-    # Update!
+def desenha(window: pygame.Surface, assets, state):
+    '''Função utilizada para desenhar todos os sprites na tela'''
     pygame.display.update()
 
-# Terminar tela
-pygame.quit()
+def atualiza_estado(state):
+    '''Função utilizada para atualizar os estados do jogo'''
+
+    for ev in pygame.event.get():
+        if ev.type == pygame.QUIT:
+            return False
+        if ev.type == pygame.MOUSEBUTTONDOWN:
+            '''caso o jogador tenha pressionado o botão do mouse'''
+            return False
+
+    return True
+
+def gameloop(window, assets, state):
+    while atualiza_estado(state):
+        desenha(window, assets, state)
+
+if __name__ == '__main__':
+    window, assets, state = inicializa()
+    gameloop(window, assets, state)
+    finaliza()

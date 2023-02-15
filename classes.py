@@ -15,8 +15,9 @@ class Estrela(pygame.sprite.Sprite):
         '''Classe para criar a estrela, o objeto que disparará no alvo'''
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load("et.png")
+            self.image = pygame.image.load("/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/et.png")
             self.image = pygame.transform.scale(self.image, (50,50))
+            
         
            
            
@@ -24,6 +25,7 @@ class Estrela(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
             self.rect.centerx = WIDTH/2
             self.rect.centery = HEIGHT - 50
+            self.posicao = self.rect
 
             
             
@@ -32,16 +34,14 @@ class Estrela(pygame.sprite.Sprite):
         def update(self, direita):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
             if direita:
-               
-                self.image = pygame.transform.rotate(self.image, angle=-10)
-                self.rect = self.image.get_rect(center=self.rect.center)
-                self.rect.centerx = WIDTH/2
-                self.rect.centery = HEIGHT - 50
+             
+                a = pygame.transform.rotate(self.image, angle=-10)
+                pos = self.image.get_rect(center = self.posicao)
+                self.image = a
             else:
                 
-                
-                self.image = pygame.transform.rotate(self.image, angle=10)
                 self.rect = self.image.get_rect(center=self.rect.center)
+                self.image = pygame.transform.rotate(self.image, angle=10)
                 self.rect.centerx = WIDTH/2
                 self.rect.centery = HEIGHT - 50
 

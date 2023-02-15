@@ -15,35 +15,39 @@ class Estrela(pygame.sprite.Sprite):
         '''Classe para criar a estrela, o objeto que disparará no alvo'''
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load("et.png")
+            self.image = pygame.image.load("estrela.png")
             self.image = pygame.transform.scale(self.image, (50,50))
         
            
            
           
             self.rect = self.image.get_rect()
-            self.rect.centerx = WIDTH/2
-            self.rect.centery = HEIGHT - 50
+            self.rect.centerx = 50
+            self.rect.centery = HEIGHT/2
 
             
             
           
             
-        def update(self, direita):
+        def update(self, velocidade):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
-            if direita:
+    
+            # if direita:
                
-                self.image = pygame.transform.rotate(self.image, angle=-10)
-                self.rect = self.image.get_rect(center=self.rect.center)
-                self.rect.centerx = WIDTH/2
-                self.rect.centery = HEIGHT - 50
-            else:
+            #     self.image = pygame.transform.rotate(self.image, angle=-10)
+            #     self.rect = self.image.get_rect(center=self.rect.center)
+            #     self.rect.centerx = WIDTH/2
+            #     self.rect.centery = HEIGHT - 50
+            # else:
                 
                 
-                self.image = pygame.transform.rotate(self.image, angle=10)
-                self.rect = self.image.get_rect(center=self.rect.center)
-                self.rect.centerx = WIDTH/2
-                self.rect.centery = HEIGHT - 50
+            #     self.image = pygame.transform.rotate(self.image, angle=10)
+            #     self.rect = self.image.get_rect(center=self.rect.center)
+            #     self.rect.centerx = WIDTH/2
+            #     self.rect.centery = HEIGHT - 50
+            if velocidade < 1 and  velocidade > 0 :
+                self.rect.centerx += 1
+            self.rect.centerx += velocidade
 
     
         
@@ -76,12 +80,12 @@ class Altera_vel(pygame.sprite.Sprite):
         '''Classe para alterar a velocidade de lançamento dos projéteis que a estrela arremessa'''
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.Surface((20,200))
+            self.image = pygame.Surface((400,50))
             self.image.fill(RED)
           
             self.rect = self.image.get_rect()
-            self.rect.centerx = 10
-            self.rect.centery = HEIGHT/2
+            self.rect.centerx = WIDTH/2
+            self.rect.centery = 695
 
             
             

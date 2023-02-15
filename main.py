@@ -3,6 +3,7 @@ import pygame
 from classes import*
 from variaveis import *
 from constantes import*
+import numpy as np
 
 def inicializa():
     '''Função que inicializa todos os assets e states do jogo'''
@@ -32,7 +33,7 @@ def inicializa():
     }
 
     state = {
-        "estrela": estrelas,"estrela_obj": estrela, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo, "planeta":planeta_grupo
+        "estrela": estrelas,"estrela_obj": estrela, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo, "planeta":planeta_grupo, "em_andamento": False, "velocidade": 0
       
     }
     return window, assets, state
@@ -66,6 +67,17 @@ def atualiza_estado(state):
         if keys[pygame.K_RIGHT]:
             '''caso o jogador tenha pressionado o botão seta pra cima'''
             state['estrela_obj'].update(direita)
+        if ev.type == pygame.MOUSEBUTTONDOWN:
+            if ev.button == 1:
+                if state['em_andamento'] == False:
+                    if ev.pos[0] >= 440 and ev.pos[0] <=840 and ev.pos[1] >= 670:
+                        y = pygame.mouse.get_pos()[0] - 440
+                        state['velocidade'] = y/100
+                        state['em_andamento'] = True
+                        print(state['velocidade'])
+    state['estrela_obj'].update(state['velocidade'])
+
+
 
             
     

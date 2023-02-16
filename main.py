@@ -29,11 +29,11 @@ def inicializa():
 
 
 
-    assets = {
+    assets = {"fundo":pygame.transform.scale(pygame.image.load("wallpaper_estrelas.jpeg"), (1280,720))
     }
 
     state = {
-        "estrela": estrelas,"estrela_obj": estrela, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo, "planeta":planeta_grupo, "em_andamento": False, "velocidade": 0
+        "estrela": estrelas,"estrela_obj": estrela, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo, "planeta":planeta_grupo, "em_andamento": False, "velocidade": 0, "atingiu": False, "pontos": 0
       
     }
     return window, assets, state
@@ -46,6 +46,7 @@ def finaliza():
 def desenha(window: pygame.Surface, assets, state):
     '''Função utilizada para desenhar todos os sprites na tela'''
     window.fill((0,0,0))
+    window.blit(assets['fundo'], (0,0))
     state['estrela'].draw(window)
     state['alvo'].draw(window)
     state['altera_vel'].draw(window)
@@ -70,11 +71,15 @@ def atualiza_estado(state):
         if ev.type == pygame.MOUSEBUTTONDOWN:
             if ev.button == 1:
                 if state['em_andamento'] == False:
-                    if ev.pos[0] >= 440 and ev.pos[0] <=840 and ev.pos[1] >= 670:
+                    if ev.pos[0] > 440 and ev.pos[0] <=840 and ev.pos[1] >= 670:
                         y = pygame.mouse.get_pos()[0] - 440
+                        if y < 100:
+                            y = 100
                         state['velocidade'] = y/100
                         state['em_andamento'] = True
-                        print(state['velocidade'])
+    if pygame.sprite.spritecollide(state['estrela_obj'], state['alvo'], True) :
+        state['pontos']+= 1
+        state
     state['estrela_obj'].update(state['velocidade'])
 
 

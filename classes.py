@@ -45,8 +45,6 @@ class Estrela(pygame.sprite.Sprite):
             #     self.rect = self.image.get_rect(center=self.rect.center)
             #     self.rect.centerx = WIDTH/2
             #     self.rect.centery = HEIGHT - 50
-            if velocidade < 1 and  velocidade > 0 :
-                self.rect.centerx += 1
             self.rect.centerx += velocidade
 
     
@@ -60,12 +58,12 @@ class Alvo(pygame.sprite.Sprite):
         '''Classe para criar o alvo'''
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.Surface((20,20))
-            self.image.fill(RED)
+            self.image = pygame.image.load("Attack_2.png")
+            self.image = pygame.transform.scale(self.image, (100,100))
           
             self.rect = self.image.get_rect()
-            self.rect.centerx = WIDTH/2
-            self.rect.centery = 50
+            self.rect.centerx = 1230
+            self.rect.centery = HEIGHT/2
 
             
             
@@ -80,8 +78,7 @@ class Altera_vel(pygame.sprite.Sprite):
         '''Classe para alterar a velocidade de lançamento dos projéteis que a estrela arremessa'''
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.Surface((400,50))
-            self.image.fill(RED)
+            self.image = pygame.image.load('barra.png')
           
             self.rect = self.image.get_rect()
             self.rect.centerx = WIDTH/2

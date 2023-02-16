@@ -3,6 +3,7 @@ import pygame
 from classes import*
 from variaveis import *
 from constantes import*
+import numpy as np
 
 def inicializa():
     '''Função que inicializa todos os assets e states do jogo'''
@@ -24,6 +25,16 @@ def inicializa():
     planeta_grupo= pygame.sprite.Group()
     planeta_grupo.add(planeta)
 
+    #Criando o objeto  mira e adicionando no grupo de sprite mira_grupo
+
+    mira = Mira1()
+    mira_grupo= pygame.sprite.Group()
+    mira_grupo.add(mira)
+    mira2 = Mira2()
+    mira_grupo2= pygame.sprite.Group()
+    mira_grupo2.add(mira2)
+
+
 
 
 
@@ -32,7 +43,9 @@ def inicializa():
     }
 
     state = {
-        "estrela": estrelas,"estrela_obj": estrela, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo, "planeta":planeta_grupo
+        "estrela": estrelas,"estrela_obj": estrela, "alvo":grupo_alvo, "altera_vel" : altera_vel_grupo,
+         "planeta":planeta_grupo, "em_andamento": False, "velocidade": np.array([0,0]), 'mira':mira_grupo, 'mira_obj': mira,
+         'mira2':mira_grupo2, 'mira_obj2': mira2
       
     }
     return window, assets, state
@@ -49,23 +62,43 @@ def desenha(window: pygame.Surface, assets, state):
     state['alvo'].draw(window)
     state['altera_vel'].draw(window)
     state['planeta'].draw(window)
+    state['mira'].draw(window)
+    state['mira2'].draw(window)
+
 
     pygame.display.update()
 
 def atualiza_estado(state):
     '''Função utilizada para atualizar os estados do jogo'''
-    direita = True
+    direita = 1
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
             return False
         keys=pygame.key.get_pressed()
         if keys[pygame.K_LEFT]:
-            direita = False
+            
             '''caso o jogador tenha pressionado o botão seta pra cima'''
-            state['estrela_obj'].update(direita)
+            direita = 2
+            state['mira_obj'].update(direita)
+            state['mira_obj2'].update(direita)
         if keys[pygame.K_RIGHT]:
             '''caso o jogador tenha pressionado o botão seta pra cima'''
-            state['estrela_obj'].update(direita)
+            direita = 3
+            state['mira_obj'].update(direita)
+            state['mira_obj2'].update(direita)
+        if ev.type == pygame.MOUSEBUTTONDOWN:
+            if ev.button == 1:
+                if state['em_andamento'] == False:
+                    if ev.pos[0] >= 440 and ev.pos[0] <=840 and ev.pos[1] >= 670:
+                        x = pygame.mouse.get_pos()[0] - 440
+                        state['velocidade'][0] = x/100
+                        state['em_andamento'] = True
+    state['estrela_obj'].update(state['velocidade'])
+
+ 
+
+
+
 
             
     

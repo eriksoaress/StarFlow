@@ -15,8 +15,8 @@ class Estrela(pygame.sprite.Sprite):
         '''Classe para criar a estrela, o objeto que disparará no alvo'''
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load("/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/estrela.png")
-            self.image = pygame.transform.scale(self.image, (20,20))
+            self.image = pygame.image.load("estrela.png")
+            self.image = pygame.transform.scale(self.image, (30,30))
             
             self.rect = self.image.get_rect()
 
@@ -35,11 +35,11 @@ class Estrela(pygame.sprite.Sprite):
                 self.rect.center = posicao_inicial_estrela
 
             # Se a estrela sair da tela, ela volta para a posição inicial
-            if self.rect.center[0] > 1230:
+            if self.rect.center[0] > 1310 or self.rect.center[0] < -30 or self.rect.center[1] > 750 or self.rect.center[1] < -30:
                 self.rect.center =posicao_inicial_estrela
                 return True
             # Nova posição da estrela
-            self.rect.center = self.rect.center +  0.1*velocidade
+            self.rect.center = self.rect.center +  0.05*velocidade
     
         
        
@@ -51,7 +51,7 @@ class Alvo(pygame.sprite.Sprite):
         '''Classe para criar o alvo'''
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load("/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/Attack_2.png")
+            self.image = pygame.image.load("Attack_2.png")
             self.image = pygame.transform.scale(self.image, (100,100))
           
             self.rect = self.image.get_rect()
@@ -65,20 +65,6 @@ class Alvo(pygame.sprite.Sprite):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
         
             self.rect.center = np.array([1230,random.randint(50, HEIGHT - 50) ])  
-
-class Altera_vel(pygame.sprite.Sprite):
-        '''Classe para alterar a velocidade de lançamento dos projéteis que a estrela arremessa'''
-        def __init__(self):
-            pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.image.load('/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/barra.png')
-          
-            self.rect = self.image.get_rect()
-            self.rect.center = np.array([WIDTH/2, 695])
-
- 
-        def update(self):
-            '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
-            pass
     
 class Planeta(pygame.sprite.Sprite):
         '''Classe para alterar a velocidade de lançamento dos projéteis que a estrela arremessa'''
@@ -104,7 +90,6 @@ class Planeta(pygame.sprite.Sprite):
         def update(self, estrela, velocidade_estrela):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
             vetor = (np.array(estrela.rect.center)- np.array(self.rect.center))
-            print(vetor)
             gravidade = (1000/((vetor[0]**2 + vetor[1]**2)**(1/2))**2)*vetor/(vetor[0]**2 + vetor[1]**2)**(1/2)
             if self.em_andamento:
                 velocidade_estrela += gravidade

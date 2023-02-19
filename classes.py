@@ -39,7 +39,7 @@ class Estrela(pygame.sprite.Sprite):
                 self.rect.center =posicao_inicial_estrela
                 return True
             # Nova posição da estrela
-            self.rect.center = self.rect.center +  0.1*velocidade
+            self.rect.center = self.rect.center +  0.01*velocidade
     
         
        
@@ -82,31 +82,26 @@ class Altera_vel(pygame.sprite.Sprite):
     
 class Planeta(pygame.sprite.Sprite):
         '''Classe para alterar a velocidade de lançamento dos projéteis que a estrela arremessa'''
-        def __init__(self,raio, posicao, em_andamento):
+        def __init__(self,raio, posicao):
             pygame.sprite.Sprite.__init__(self)
             self.image = pygame.Surface((raio, raio))
             self.image.fill(RED)
 
             self.rect = self.image.get_rect()
             self.rect.center = posicao
-            self.em_andamento = em_andamento
-        @classmethod
-        def calcula_modulo(vetor):
-            return (vetor[0]**2 + vetor[1]**2)**(1/2)
-        @classmethod
-        def vetor_unitario(vetor):
-            return vetor/(vetor[0]**2 + vetor[1]**2)**(1/2)
+           
+ 
 
             
-            
+                
           
             
-        def update(self, estrela, velocidade_estrela):
+        def update(self, estrela, velocidade_estrela, em_andamento):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
-            vetor = (np.array(estrela.rect.center)- np.array(self.rect.center))
+            vetor = estrela.rect.center - self.rect.center
             print(vetor)
             gravidade = (1000/((vetor[0]**2 + vetor[1]**2)**(1/2))**2)*vetor/(vetor[0]**2 + vetor[1]**2)**(1/2)
-            if self.em_andamento:
+            if em_andamento:
                 velocidade_estrela += gravidade
                 
 

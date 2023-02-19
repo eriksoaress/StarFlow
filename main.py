@@ -21,7 +21,8 @@ def inicializa():
     altera_velocidades= pygame.sprite.Group()
     altera_velocidades.add(altera_velocidade)
     #Criando o objeto  planeta e adicionando no grupo de sprite planeta_grupo
-    planeta = Planeta(raio_planeta, posicao_planeta, False)
+    planeta = Planeta(raio_planeta, posicao_planeta     
+    ,)
     planetas= pygame.sprite.Group()
     planetas.add(planeta)
 
@@ -80,7 +81,8 @@ def atualiza_estado(state):
                     
                         
     if state['em_andamento']:
-        state['planeta'].update(state['estrela'],state['velocidade'])            
+        print(type(state['velocidade']))
+        state['planeta'].update(state['estrela'],state['velocidade'], state['em_andamento'])            
     if pygame.sprite.spritecollide(state['estrela'], state['alvos'], False) :
         state['pontos']+= 1
         state['alvo'].update()
@@ -93,7 +95,7 @@ def atualiza_estado(state):
     if passou_da_tela:
         state['velocidade'] *= 0
         state['em_andamento'] = False
- 
+                
 
 
 

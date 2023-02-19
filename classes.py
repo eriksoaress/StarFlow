@@ -89,14 +89,16 @@ class Planeta(pygame.sprite.Sprite):
           
             
         def update(self, estrela, velocidade_estrela, em_andamento):
-          
+            # Vetor que aponta da posição do planeta para a posição da estrela
             vetor = (np.array([estrela.rect.centerx, estrela.rect.centery ])- np.array([self.rect.centerx, self.rect.centery]))
+            # gravidade  = 1000/(modulo_vetor**2)*vetor/modulo_vetor
             gravidade = (1000/(vetor[0]**2 + vetor[1]**2))*(vetor/(vetor[0]**2 + vetor[1]**2)**0.5)
    
             if em_andamento:
+                # se a estrela tiver em movimento, a gravidade atua sobre ela, alterando sua posicao 
                 estrela.rect.centerx = estrela.rect.centerx +  0.05*velocidade_estrela[0]
                 estrela.rect.centery = estrela.rect.centery +  0.05*velocidade_estrela[1]
-       
+                # se a estrela tiver em movimento, a gravidade atua sobre ela, alterando sua velocidade
                 velocidade_estrela[0] = velocidade_estrela[0] +  gravidade[0]
                 velocidade_estrela[1] = velocidade_estrela[1] +  gravidade[1]
 

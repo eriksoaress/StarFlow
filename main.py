@@ -16,10 +16,6 @@ def inicializa():
     alvo = Alvo()
     alvos = pygame.sprite.Group()
     alvos.add(alvo)
-    #Criando o objeto  altera_velocidade e adicionando no grupo de sprite altera_vel_grupo
-    altera_velocidade = Altera_vel()
-    altera_velocidades= pygame.sprite.Group()
-    altera_velocidades.add(altera_velocidade)
     #Criando o objeto  planeta e adicionando no grupo de sprite planeta_grupo
     planeta = Planeta(raio_planeta, posicao_planeta     
     ,)
@@ -27,17 +23,14 @@ def inicializa():
     planetas.add(planeta)
 
 
-    velocidade = np.array([0,0])
-
-
 
     assets = {"fundo":pygame.transform.scale(pygame.image.load('''/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_estrelas.jpeg'''), (1280,720))
     }
 
     state = {
-        "estrela": estrela,"estrelas": estrelas, "alvos":alvos, "alvo":alvo, "altera_velocidades" : altera_velocidades, 
-        "planetas":planetas,"planeta":planeta, "em_andamento": False, "velocidade": np.array([0,0]), "atingiu": False, 
-        "pontos": 0
+        "estrela": estrela,"estrelas": estrelas, "alvos":alvos, "alvo":alvo,
+        "planetas":planetas,"planeta":planeta, "em_andamento": False, 
+        "velocidade": np.array([0,0]),"atingiu": False, "pontos": 0, "arrastando": False
       
     }
     return window, assets, state
@@ -51,10 +44,20 @@ def desenha(window: pygame.Surface, assets, state):
     '''Função utilizada para desenhar todos os sprites na tela'''
     window.fill((0,0,0))
     window.blit(assets['fundo'], (0,0))
+    pygame.font.init()
+    fonte = pygame.font.SysFont('Arial', 16)
+    pontos_texto = fonte.render('Score: {}'.format(state['pontos']), True, (255, 255, 255))
+    posicao_texto = pontos_texto.get_rect()
+    posicao_texto.topright = (1270, 0)
+    window.blit(pontos_texto, posicao_texto)
+    if state['arrastando'] == True:
+        pygame.draw.circle(window, (255,255,255), posicao_inicial_estrela, 3)
     state['estrelas'].draw(window)
     state['alvos'].draw(window)
-    state['altera_velocidades'].draw(window)
     state['planetas'].draw(window)
+    if state['arrastando'] == True:
+        pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
+
 
 
 
@@ -71,30 +74,39 @@ def atualiza_estado(state):
         if ev.type == pygame.MOUSEBUTTONDOWN:
             if ev.button == 1:
                 if state['em_andamento'] == False:
-                    
+                    if state['estrela'].rect.collidepoint(ev.pos):
+                        state['estrela'].rect.center = pygame.mouse.get_pos()
+                        state['arrastando'] = True
+        elif ev.type == pygame.MOUSEBUTTONUP:
+            if ev.button == 1:
+                if state['arrastando'] == True:
                     velocidade =  posicao_inicial_estrela - posicao_mouse 
                     state['velocidade'] = velocidade
                     state['estrela'].update(state['velocidade'], state['atingiu'])
                     state['em_andamento'] = True
+                state['arrastando'] = False
+        elif state['arrastando'] == True:
+            state['estrela'].rect.center = pygame.mouse.get_pos()
     
                    
                     
                         
-    if state['em_andamento']:
-        print(type(state['velocidade']))
-        state['planeta'].update(state['estrela'],state['velocidade'], state['em_andamento'])            
+              
     if pygame.sprite.spritecollide(state['estrela'], state['alvos'], False) :
         state['pontos']+= 1
         state['alvo'].update()
-        state['estrela'].update(state['velocidade'],True)
         state['velocidade'] *= 0
+        state['estrela'].update(state['velocidade'],True)
         state['em_andamento'] = False
     
     passou_da_tela = state['estrela'].update(state['velocidade'], False)
     # state['planeta'].update(state['velocidade'],np.array([state['estrela_obj'].rect.centerx, state['estrela_obj'].rect.centery]), state['estrela_obj'])
     if passou_da_tela:
+        state['pontos'] = 0
         state['velocidade'] *= 0
         state['em_andamento'] = False
+    if state['em_andamento']:
+        state['planeta'].update(state['estrela'],state['velocidade'], state['em_andamento'])
                 
 
 

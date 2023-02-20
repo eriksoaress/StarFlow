@@ -4,7 +4,8 @@ from classes import*
 from variaveis import *
 from constantes import*
 import numpy as np
-
+FPS = 60  # Frames per Second
+clock = pygame.time.Clock()
 def inicializa():
     '''Função que inicializa todos os assets e states do jogo'''
     window = pygame.display.set_mode((WIDTH, HEIGHT), flags=pygame.SCALED)
@@ -41,6 +42,9 @@ def finaliza():
     pygame.quit()
 
 def desenha(window: pygame.Surface, assets, state):
+
+
+    clock.tick(FPS)
     '''Função utilizada para desenhar todos os sprites na tela'''
     window.fill((0,0,0))
     window.blit(assets['fundo'], (0,0))
@@ -64,6 +68,7 @@ def desenha(window: pygame.Surface, assets, state):
     pygame.display.update()
 
 def atualiza_estado(state):
+    global velocidade
     '''Função utilizada para atualizar os estados do jogo'''
   
     for ev in pygame.event.get():
@@ -100,6 +105,20 @@ def atualiza_estado(state):
         state['em_andamento'] = False
     
     passou_da_tela = state['estrela'].update(state['velocidade'], False)
+
+    if state['em_andamento']:
+        vetor_planeta_estrela = np.array([state['planeta'].rect.centerx, state['planeta'].rect.centery]) - np.array([state['estrela'].rect.centerx, state['estrela'].rect.centery])
+        direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela)
+        DT = 100000/np.linalg.norm(vetor_planeta_estrela)**2
+        gravidade = DT * direcao_gravidade
+        
+        velocidade  = velocidade +  gravidade
+        state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.4*velocidade[0]
+        state['estrela'].rect.centery = state['estrela'].rect.centery +  0.4*velocidade[1]
+
+
+
+
     # state['planeta'].update(state['velocidade'],np.array([state['estrela_obj'].rect.centerx, state['estrela_obj'].rect.centery]), state['estrela_obj'])
     if passou_da_tela:
         state['pontos'] = 0

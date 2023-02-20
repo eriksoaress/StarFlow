@@ -7,6 +7,8 @@ import numpy as np
 FPS = 60  # Frames per Second
 clock = pygame.time.Clock()
 def inicializa():
+    # Inicializa o Pygame
+    pygame.init()
     '''Função que inicializa todos os assets e states do jogo'''
     window = pygame.display.set_mode((WIDTH, HEIGHT), flags=pygame.SCALED)
     #Criando o objeto estrela e adicionando no grupo de sprite estrelas
@@ -18,11 +20,32 @@ def inicializa():
     alvos = pygame.sprite.Group()
     alvos.add(alvo)
     #Criando o objeto  planeta e adicionando no grupo de sprite planeta_grupo
-    planeta = Planeta(raio_planeta, posicao_planeta     
-    ,)
+    planeta = Planeta(raio_planeta, posicao_planeta)
     planetas= pygame.sprite.Group()
     planetas.add(planeta)
 
+   
+    font3 = pygame.font.Font(None,40)
+    
+
+
+    text = font3.render('Game Over', True, RED)
+    screen_help_rect = pygame.Rect(361, 7, 63, 31)
+    principal_menu_rect = pygame.Rect(74, 396, 252, 59)
+    play_again_rect = pygame.Rect(74, 321, 252, 59)
+    exit_rect = pygame.Rect(74, 471, 252, 59)
+    text_rect = text.get_rect(center = (20,20))
+
+
+
+    tela_inicial = Tela_inicial()
+    telas_iniciais = pygame.sprite.Group()
+    telas_iniciais.add(tela_inicial)
+
+    all_help_screen = pygame.sprite.Group()
+    help_screen = Help()
+    all_help_screen.add(help_screen)
+ 
 
 
     assets = {"fundo":pygame.transform.scale(pygame.image.load('''/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_estrelas.jpeg'''), (1280,720))
@@ -31,8 +54,11 @@ def inicializa():
     state = {
         "estrela": estrela,"estrelas": estrelas, "alvos":alvos, "alvo":alvo,
         "planetas":planetas,"planeta":planeta, "em_andamento": False, 
-        "velocidade": np.array([0,0]),"atingiu": False, "pontos": 0, "arrastando": False
-      
+        "velocidade": np.array([0,0]),"atingiu": False, "pontos": 0, "arrastando": False, 
+        "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
+        'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
+        'font3':font3,'all_help_screen': all_help_screen,
+     
     }
     return window, assets, state
 
@@ -42,25 +68,81 @@ def finaliza():
     pygame.quit()
 
 def desenha(window: pygame.Surface, assets, state):
+    
+    global COR_1
+    global COR_2
+    global COR_3
 
 
-    clock.tick(FPS)
-    '''Função utilizada para desenhar todos os sprites na tela'''
-    window.fill((0,0,0))
-    window.blit(assets['fundo'], (0,0))
-    pygame.font.init()
-    fonte = pygame.font.SysFont('Arial', 16)
-    pontos_texto = fonte.render('Score: {}'.format(state['pontos']), True, (255, 255, 255))
-    posicao_texto = pontos_texto.get_rect()
-    posicao_texto.topright = (1270, 0)
-    window.blit(pontos_texto, posicao_texto)
-    if state['arrastando'] == True:
-        pygame.draw.circle(window, (255,255,255), posicao_inicial_estrela, 3)
-    state['estrelas'].draw(window)
-    state['alvos'].draw(window)
-    state['planetas'].draw(window)
-    if state['arrastando'] == True:
-        pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
+    if state['tela_inicial']:
+        '''Desenha a tela inicial do jogo'''
+
+        fonte = pygame.font.SysFont('Arial', 40)
+        iniciar_jogo = fonte.render('Iniciar jogo', True, COR_1)
+        sair = fonte.render('Sair', True, COR_2)
+        instrucoes = fonte.render('Instruções', True, COR_3)
+
+        posicao_iniciar_jogo = iniciar_jogo.get_rect()
+        posicao_sair = sair.get_rect()
+        posicao_instrucoes = instrucoes.get_rect()
+
+
+        posicao_iniciar_jogo.topright = (700, 300)
+        posicao_sair.topright = (645, 500)
+        posicao_instrucoes.topright = (695, 400)
+
+        window.blit(iniciar_jogo, posicao_iniciar_jogo)
+        window.blit(instrucoes, posicao_instrucoes)
+        window.blit(sair, posicao_sair)
+
+        if posicao_iniciar_jogo.collidepoint(pygame.mouse.get_pos()):
+            COR_1 = (255, 0, 0)
+            if pygame.mouse.get_pressed()[0]:
+                state['tela_inicial'] = False
+                state['tela_jogo'] = True
+        else:
+            COR_1 = (255, 255, 255)
+
+        if posicao_sair.collidepoint(pygame.mouse.get_pos()):
+            COR_2 = (255, 0, 0)
+            if pygame.mouse.get_pressed()[0]:
+                finaliza()
+        else:
+            COR_2 = (255, 255, 255)
+        
+        if posicao_instrucoes.collidepoint(pygame.mouse.get_pos()):
+            COR_3 = (255, 0, 0)
+            if pygame.mouse.get_pressed()[0]:
+                state['tela_inicial'] = False
+                state['tela_instrucoes'] = True
+        else:
+            COR_3 = (255, 255, 255)
+        
+        
+        
+
+  
+        
+        
+    else:
+
+
+        clock.tick(FPS)
+        '''Função utilizada para desenhar todos os sprites na tela'''
+        window.fill((0,0,0))
+        window.blit(assets['fundo'], (0,0))
+        fonte = pygame.font.SysFont('Arial', 16)
+        pontos_texto = fonte.render('Score: {}'.format(state['pontos']), True, (255, 255, 255))
+        posicao_texto = pontos_texto.get_rect()
+        posicao_texto.topright = (1270, 0)
+        window.blit(pontos_texto, posicao_texto)
+        if state['arrastando'] == True:
+            pygame.draw.circle(window, (255,255,255), posicao_inicial_estrela, 3)
+        state['estrelas'].draw(window)
+        state['alvos'].draw(window)
+        state['planetas'].draw(window)
+        if state['arrastando'] == True:
+            pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
 
 
 
@@ -74,6 +156,7 @@ def atualiza_estado(state):
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
             return False
+        
       
         posicao_mouse = np.array(pygame.mouse.get_pos())
         if ev.type == pygame.MOUSEBUTTONDOWN:

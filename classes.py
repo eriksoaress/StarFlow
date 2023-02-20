@@ -90,5 +90,22 @@ class Planeta(pygame.sprite.Sprite):
          
 
                 
+    
+
+class Tela_inicial(pygame.sprite.Sprite):
+    '''Classe para criar a tela inicial'''
+    def __init__(self):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = pygame.image.load('/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_estrelas.jpeg')
+            self.rect = self.image.get_rect()
+    
 
 
+
+
+class Help(pygame.sprite.Sprite):
+    '''Classe para criar a tela de ajuda, onde fica explicado os níveis do jogo'''
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load('/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_estrelas.jpeg')
+        self.rect = self.image.get_rect()

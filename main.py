@@ -142,11 +142,11 @@ def desenha(window: pygame.Surface, assets, state):
         window.blit(pontos_texto, posicao_texto)
         if state['arrastando'] == True:
             pygame.draw.circle(window, (255,255,255), posicao_inicial_estrela, 3)
+        if state['arrastando'] == True:
+            pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
         state['estrelas'].draw(window)
         state['alvos'].draw(window)
         state['planetas'].draw(window)
-        if state['arrastando'] == True:
-            pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
 
 
 

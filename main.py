@@ -20,9 +20,11 @@ def inicializa():
     alvos = pygame.sprite.Group()
     alvos.add(alvo)
     #Criando o objeto  planeta e adicionando no grupo de sprite planeta_grupo
-    planeta = Planeta(raio_planeta, posicao_planeta)
+
+    planeta1 = Planeta(raio_planeta, posicao_planeta)
+
     planetas= pygame.sprite.Group()
-    planetas.add(planeta)
+    planetas.add(planeta1)
 
    
     font3 = pygame.font.Font(None,40)
@@ -45,19 +47,21 @@ def inicializa():
     all_help_screen = pygame.sprite.Group()
     help_screen = Help()
     all_help_screen.add(help_screen)
+
+    planeta2 = Planeta(raio_planeta +10, np.array([300,200]))
  
 
 
     assets = {"fundo":pygame.transform.scale(pygame.image.load('''/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_estrelas.jpeg'''), (1280,720))
-    }
+    , "fundo_instrucoes": pygame.transform.scale(pygame.image.load('''/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/fundo_instrucoes.jpeg'''), (1280,720)) }
 
     state = {
         "estrela": estrela,"estrelas": estrelas, "alvos":alvos, "alvo":alvo,
-        "planetas":planetas,"planeta":planeta, "em_andamento": False, 
+        "planetas":planetas,"planeta1":planeta1, "em_andamento": False, 
         "velocidade": np.array([0,0]),"atingiu": False, "pontos": 0, "arrastando": False, 
         "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
         'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
-        'font3':font3,'all_help_screen': all_help_screen,
+        'font3':font3,'all_help_screen': all_help_screen, "fase": 1, "inicio_fase": True, 'planeta2': planeta2, 'planeta2': planeta2
      
     }
     return window, assets, state
@@ -68,7 +72,7 @@ def finaliza():
     pygame.quit()
 
 def desenha(window: pygame.Surface, assets, state):
-    
+
     global COR_1
     global COR_2
     global COR_3
@@ -118,13 +122,27 @@ def desenha(window: pygame.Surface, assets, state):
         else:
             COR_3 = (255, 255, 255)
         
-        
-        
 
+        
+    if state['tela_instrucoes']:
+        '''Desenha a tela de instruções do jogo'''
+        fonte = pygame.font.SysFont('Arial', 40)
+        voltar = fonte.render('Voltar', True, (0,0,0))
+        posicao_voltar = voltar.get_rect()
+        posicao_voltar.topright = (700, 600)
+        window.blit(assets['fundo_instrucoes'], (0,0))
+        window.blit(voltar, posicao_voltar)
+        
+        
+        
+        if posicao_voltar.collidepoint(pygame.mouse.get_pos()):
+            if pygame.mouse.get_pressed()[0]:
+                state['tela_inicial'] = True
+                state['tela_instrucoes'] = False
   
         
         
-    else:
+    if state['tela_jogo']:
 
 
         clock.tick(FPS)
@@ -139,10 +157,16 @@ def desenha(window: pygame.Surface, assets, state):
         if state['arrastando'] == True:
             pygame.draw.circle(window, (255,255,255), posicao_inicial_estrela, 3)
         state['estrelas'].draw(window)
-        state['alvos'].draw(window)
-        state['planetas'].draw(window)
+        if state['fase'] == 1:
+            state['alvos'].draw(window)
+            state['planetas'].draw(window)
+       
+    
+     
         if state['arrastando'] == True:
-            pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
+            color_line = min(((pygame.mouse.get_pos()[0]  - posicao_inicial_estrela[0])**2  + (pygame.mouse.get_pos()[1]  - posicao_inicial_estrela[1] )**2)**0.5, 255)
+
+            pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela, pygame.mouse.get_pos(), 2)
 
 
 
@@ -168,7 +192,12 @@ def atualiza_estado(state):
         elif ev.type == pygame.MOUSEBUTTONUP:
             if ev.button == 1:
                 if state['arrastando'] == True:
-                    velocidade =  posicao_inicial_estrela - posicao_mouse 
+                    velocidade =  posicao_inicial_estrela - posicao_mouse
+                    modulo_velocidade= (velocidade[0]**2 + velocidade[1]**2)**0.5
+                    unitario = velocidade/modulo_velocidade
+                    if modulo_velocidade> 100:
+                        velocidade = unitario*100
+                    modulo_velocidade= (velocidade[0]**2 + velocidade[1]**2)**0.5
                     state['velocidade'] = velocidade
                     state['estrela'].update(state['velocidade'], state['atingiu'])
                     state['em_andamento'] = True
@@ -190,14 +219,7 @@ def atualiza_estado(state):
     passou_da_tela = state['estrela'].update(state['velocidade'], False)
 
     if state['em_andamento']:
-        vetor_planeta_estrela = np.array([state['planeta'].rect.centerx, state['planeta'].rect.centery]) - np.array([state['estrela'].rect.centerx, state['estrela'].rect.centery])
-        direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela)
-        DT = 100000/np.linalg.norm(vetor_planeta_estrela)**2
-        gravidade = DT * direcao_gravidade
-        
-        velocidade  = velocidade +  gravidade
-        state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.4*velocidade[0]
-        state['estrela'].rect.centery = state['estrela'].rect.centery +  0.4*velocidade[1]
+            state['planeta1'].update(state)
 
 
 
@@ -207,9 +229,7 @@ def atualiza_estado(state):
         state['pontos'] = 0
         state['velocidade'] *= 0
         state['em_andamento'] = False
-    if state['em_andamento']:
-        state['planeta'].update(state['estrela'],state['velocidade'], state['em_andamento'])
-                
+
 
 
 

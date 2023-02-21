@@ -84,8 +84,15 @@ class Planeta(pygame.sprite.Sprite):
  
 
             
-        def update(self, estrela, velocidade_estrela, em_andamento):
-            pass
+        def update(self, state):
+            vetor_planeta_estrela = np.array([self.rect.centerx, self.rect.centery]) - np.array([state['estrela'].rect.centerx, state['estrela'].rect.centery])
+            direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela)
+            DT = 100000/np.linalg.norm(vetor_planeta_estrela)**2
+            gravidade = DT * direcao_gravidade
+            
+            state['velocidade']  = state['velocidade'] +  gravidade
+            state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.4*state['velocidade'][0]
+            state['estrela'].rect.centery = state['estrela'].rect.centery +  0.4*state['velocidade'][1]
    
          
 

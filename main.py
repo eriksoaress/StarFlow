@@ -23,7 +23,6 @@ def inicializa():
     planeta = Planeta(raio_planeta, posicao_planeta)
     planetas= pygame.sprite.Group()
     planetas.add(planeta)
-
    
     font3 = pygame.font.Font(None,40)
     
@@ -57,7 +56,7 @@ def inicializa():
         "velocidade": np.array([0,0]),"atingiu": False, "pontos": 0, "arrastando": False, 
         "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
         'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
-        'font3':font3,'all_help_screen': all_help_screen,
+        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open('record.txt', 'r').read())
      
     }
     return window, assets, state
@@ -78,22 +77,27 @@ def desenha(window: pygame.Surface, assets, state):
         '''Desenha a tela inicial do jogo'''
         window.blit(assets['fundo_inicio'], (0,0))
         fonte = pygame.font.SysFont('Arial', 40)
+        fonte_pontos = pygame.font.SysFont('Arial', 16)
         iniciar_jogo = fonte.render('Iniciar jogo', True, COR_1)
         sair = fonte.render('Sair', True, COR_2)
         instrucoes = fonte.render('Instruções', True, COR_3)
+        pontos_record = fonte_pontos.render('Record: {}'.format(state['record']), True, (255, 255, 255))
 
         posicao_iniciar_jogo = iniciar_jogo.get_rect()
         posicao_sair = sair.get_rect()
         posicao_instrucoes = instrucoes.get_rect()
+        posicao_record = pontos_record.get_rect()
 
 
         posicao_iniciar_jogo.topright = (700, 300)
         posicao_sair.topright = (645, 500)
         posicao_instrucoes.topright = (695, 400)
+        posicao_record.topright = (1270, 0)
 
         window.blit(iniciar_jogo, posicao_iniciar_jogo)
         window.blit(instrucoes, posicao_instrucoes)
         window.blit(sair, posicao_sair)
+        window.blit(pontos_record, posicao_record)
 
         if posicao_iniciar_jogo.collidepoint(pygame.mouse.get_pos()):
             COR_1 = (255, 0, 0)
@@ -131,8 +135,8 @@ def desenha(window: pygame.Surface, assets, state):
         '''Função utilizada para desenhar todos os sprites na tela'''
         window.fill((0,0,0))
         window.blit(assets['fundo'], (0,0))
-        fonte = pygame.font.SysFont('Arial', 16)
-        pontos_texto = fonte.render('Score: {}'.format(state['pontos']), True, (255, 255, 255))
+        fonte_pontos = pygame.font.SysFont('Arial', 16)
+        pontos_texto = fonte_pontos.render('Score: {}'.format(state['pontos']), True, (255, 255, 255))
         posicao_texto = pontos_texto.get_rect()
         posicao_texto.topright = (1270, 0)
         window.blit(pontos_texto, posicao_texto)
@@ -155,6 +159,12 @@ def atualiza_estado(state):
   
     for ev in pygame.event.get():
         if ev.type == pygame.QUIT:
+            if state['pontos'] > int(state['record']):
+            # Abre o arquivo em modo de escrita e escreve a nova pontuação
+                with open('record.txt', 'w') as file:
+                    file.write(str(state['pontos']))
+                # Atualiza o recorde com a nova pontuação
+                    state['record'] = state['pontos']
             return False
         
       
@@ -204,9 +214,15 @@ def atualiza_estado(state):
 
     # state['planeta'].update(state['velocidade'],np.array([state['estrela_obj'].rect.centerx, state['estrela_obj'].rect.centery]), state['estrela_obj'])
     if passou_da_tela:
-        state['pontos'] = 0
         state['velocidade'] *= 0
         state['em_andamento'] = False
+        if state['pontos'] > int(state['record']):
+            # Abre o arquivo em modo de escrita e escreve a nova pontuação
+            with open('record.txt', 'w') as file:
+                file.write(str(state['pontos']))
+            # Atualiza o recorde com a nova pontuação
+                state['record'] = state['pontos']
+        state['pontos'] = 0
     if state['em_andamento']:
         state['planeta'].update(state['estrela'],state['velocidade'], state['em_andamento'])
                 

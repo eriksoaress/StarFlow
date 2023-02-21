@@ -89,11 +89,34 @@ class Planeta(pygame.sprite.Sprite):
             direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela)
             DT = 100000/np.linalg.norm(vetor_planeta_estrela)**2
             gravidade = DT * direcao_gravidade
+
+            if pygame.sprite.spritecollide(state['estrela'], state['poeiras'], False) :
+                state['velocidade']   = state['velocidade']*0.9 +  gravidade
+            else:
+                state['velocidade']  = state['velocidade'] +  gravidade
+            
             
             state['velocidade']  = state['velocidade'] +  gravidade
             state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.4*state['velocidade'][0]
             state['estrela'].rect.centery = state['estrela'].rect.centery +  0.4*state['velocidade'][1]
    
+
+class Poeira(pygame.sprite.Sprite):
+        '''Classe para alterar as propriedades das poeiras'''
+        def __init__(self,largura,altura, posicao):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = pygame.image.load("/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/poeira.png")
+            self.image = pygame.transform.scale(self.image, (largura,altura))
+
+            self.rect = self.image.get_rect()
+            self.rect.centerx = posicao[0]
+            self.rect.centery = posicao[1]
+           
+ 
+
+            
+        def update(self):
+            pass
          
 
                 
@@ -116,3 +139,4 @@ class Help(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_estrelas.jpeg')
         self.rect = self.image.get_rect()
+

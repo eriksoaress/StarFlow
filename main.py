@@ -8,6 +8,12 @@ from pathlib import Path
 
 FPS = 60  # Frames per Second
 clock = pygame.time.Clock()
+
+def gera_planeta(raio, posicao):
+    '''Função que gera o planeta'''
+    planeta = Planeta(raio, posicao)
+    return planeta
+
 def inicializa():
     # Inicializa o Pygame
   
@@ -54,8 +60,7 @@ def inicializa():
     help_screen = Help()
     all_help_screen.add(help_screen)
 
-    planeta2 = Planeta(raio_planeta +10, np.array([300,200]))
-
+    
 
 
     assets = {"fundo":pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg'), (1280,720))
@@ -66,11 +71,11 @@ def inicializa():
 
     state = {
         "estrela": estrela,"estrelas": estrelas, "alvos":alvos, "alvo":alvo,
-        "planetas":planetas,"planeta":planeta, "em_andamento": False, 
+        "planetas":planetas,"planeta":[planeta], "em_andamento": False, 
         "velocidade": np.array([0,0]),"atingiu": False, "pontos": 0, "arrastando": False, 
         "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
         'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
-        'font3':font3,'all_help_screen': all_help_screen, "fase": 1, "inicio_fase": True, 'planeta2': planeta2, 'planeta2': planeta2,
+        'font3':font3,'all_help_screen': all_help_screen, "fase": 1, "inicio_fase": True,
         'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras
      
     }
@@ -174,10 +179,10 @@ def desenha(window: pygame.Surface, assets, state):
         if state['arrastando'] == True:
             pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
         state['estrelas'].draw(window)
-        if state['fase'] == 1:
-            state['alvos'].draw(window)
-            state['planetas'].draw(window)
-            state['poeiras'].draw(window)
+        
+        state['alvos'].draw(window)
+        state['planetas'].draw(window)
+        state['poeiras'].draw(window)
    
         if state['arrastando'] == True:
             color_line = min(((pygame.mouse.get_pos()[0]  - posicao_inicial_estrela[0])**2  + (pygame.mouse.get_pos()[1]  - posicao_inicial_estrela[1] )**2)**0.5, 255)
@@ -185,6 +190,11 @@ def desenha(window: pygame.Surface, assets, state):
             pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela, pygame.mouse.get_pos(), 2)
         
 
+    if state['pontos']/state['fase'] > 5 :
+        planeta = gera_planeta(random.randint(20, 50), np.array([random.randint(400, 1100), random.randint(100, 650)]))
+        state['planeta'].append(planeta)
+        state['planetas'].add(planeta)
+        state['fase'] += 1
 
 
 
@@ -242,7 +252,8 @@ def atualiza_estado(state):
     passou_da_tela = state['estrela'].update(state['velocidade'], False)
 
     if state['em_andamento']:
-            state['planeta'].update(state)
+            for i in range(state['fase']):
+                state['planeta'][i].update(state)
        
 
 

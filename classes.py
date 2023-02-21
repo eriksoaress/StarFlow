@@ -140,3 +140,6 @@ class Help(pygame.sprite.Sprite):
         self.image = pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg')
         self.rect = self.image.get_rect()
 
+
+
+        

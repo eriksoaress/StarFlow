@@ -23,7 +23,11 @@ def inicializa():
     planeta = Planeta(raio_planeta, posicao_planeta)
     planetas= pygame.sprite.Group()
     planetas.add(planeta)
-   
+    #Criando o objeto poeira e adicionando no grupo de sprite poeiras
+    poeira = Poeira(raio_poeira, raio_poeira, posicao_poeira)
+    poeiras = pygame.sprite.Group()
+    poeiras.add(poeira)
+
     font3 = pygame.font.Font(None,40)
     
 
@@ -56,7 +60,7 @@ def inicializa():
         "velocidade": np.array([0,0]),"atingiu": False, "pontos": 0, "arrastando": False, 
         "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
         'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
-        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open('record.txt', 'r').read())
+        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open('record.txt', 'r').read()), "poeiras": poeiras
      
     }
     return window, assets, state
@@ -147,6 +151,7 @@ def desenha(window: pygame.Surface, assets, state):
         state['estrelas'].draw(window)
         state['alvos'].draw(window)
         state['planetas'].draw(window)
+        state['poeiras'].draw(window)
 
 
 
@@ -201,13 +206,16 @@ def atualiza_estado(state):
 
     if state['em_andamento']:
         vetor_planeta_estrela = np.array([state['planeta'].rect.centerx, state['planeta'].rect.centery]) - np.array([state['estrela'].rect.centerx, state['estrela'].rect.centery])
-        direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela)
+        direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela) 
         DT = 100000/np.linalg.norm(vetor_planeta_estrela)**2
         gravidade = DT * direcao_gravidade
-        
-        velocidade  = velocidade +  gravidade
-        state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.4*velocidade[0]
-        state['estrela'].rect.centery = state['estrela'].rect.centery +  0.4*velocidade[1]
+        if pygame.sprite.spritecollide(state['estrela'], state['poeiras'], False) :
+            velocidade  = velocidade*0.9 +  gravidade
+        else:
+            velocidade  = velocidade +  gravidade
+        state['velocidade'] = velocidade
+        state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.4*state['velocidade'][0]
+        state['estrela'].rect.centery = state['estrela'].rect.centery +  0.4*state['velocidade'][1]
 
 
 

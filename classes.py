@@ -87,6 +87,23 @@ class Planeta(pygame.sprite.Sprite):
         def update(self, estrela, velocidade_estrela, em_andamento):
             pass
    
+
+class Poeira(pygame.sprite.Sprite):
+        '''Classe para alterar as propriedades das poeiras'''
+        def __init__(self,largura,altura, posicao):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = pygame.image.load("poeira.png")
+            self.image = pygame.transform.scale(self.image, (largura,altura))
+
+            self.rect = self.image.get_rect()
+            self.rect.centerx = posicao[0]
+            self.rect.centery = posicao[1]
+           
+ 
+
+            
+        def update(self):
+            pass
          
 
                 
@@ -109,3 +126,4 @@ class Help(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load('wallpaper_estrelas.jpeg')
         self.rect = self.image.get_rect()
+

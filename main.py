@@ -5,11 +5,14 @@ from variaveis import *
 from constantes import*
 import numpy as np
 from pathlib import Path
+
 FPS = 60  # Frames per Second
 clock = pygame.time.Clock()
 def inicializa():
     # Inicializa o Pygame
+  
     pygame.init()
+   
     '''Função que inicializa todos os assets e states do jogo'''
     window = pygame.display.set_mode((WIDTH, HEIGHT), flags=pygame.SCALED)
     #Criando o objeto estrela e adicionando no grupo de sprite estrelas
@@ -34,7 +37,6 @@ def inicializa():
     font3 = pygame.font.Font(None,40)
     
 
-
     text = font3.render('Game Over', True, RED)
     screen_help_rect = pygame.Rect(361, 7, 63, 31)
     principal_menu_rect = pygame.Rect(74, 396, 252, 59)
@@ -53,14 +55,14 @@ def inicializa():
     all_help_screen.add(help_screen)
 
     planeta2 = Planeta(raio_planeta +10, np.array([300,200]))
- 
 
 
-    assets = {"fundo":pygame.transform.scale(pygame.image.load('''/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_estrelas.jpeg'''), (1280,720))
-    , "fundo_instrucoes": pygame.transform.scale(pygame.image.load('''/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/fundo_instrucoes.jpeg'''), (1280,720)),
-    'fundo_inicio': pygame.transform.scale(pygame.image.load('''/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_inicio.png'''), (1280,720)), }
 
-    path_atual = Path.cwd()
+    assets = {"fundo":pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg'), (1280,720))
+    , "fundo_instrucoes": pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_instrucoes.jpeg'), (1280,720)),
+    'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)), }
+
+    
 
     state = {
         "estrela": estrela,"estrelas": estrelas, "alvos":alvos, "alvo":alvo,
@@ -69,7 +71,7 @@ def inicializa():
         "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
         'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
         'font3':font3,'all_help_screen': all_help_screen, "fase": 1, "inicio_fase": True, 'planeta2': planeta2, 'planeta2': planeta2,
-        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open('/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/record.txt', 'r').read()), "poeiras": poeiras
+        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras
      
     }
     return window, assets, state
@@ -196,7 +198,7 @@ def atualiza_estado(state):
         if ev.type == pygame.QUIT:
             if state['pontos'] > int(state['record']):
             # Abre o arquivo em modo de escrita e escreve a nova pontuação
-                with open('record.txt', 'w') as file:
+                with open(path / 'record.txt', 'w') as file:
                     file.write(str(state['pontos']))
                 # Atualiza o recorde com a nova pontuação
                     state['record'] = state['pontos']
@@ -252,7 +254,7 @@ def atualiza_estado(state):
 
         if state['pontos'] > int(state['record']):
             # Abre o arquivo em modo de escrita e escreve a nova pontuação
-            with open('/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/record.txt', 'w') as file:
+            with open(path / 'record.txt', 'w') as file:
                 file.write(str(state['pontos']))
             # Atualiza o recorde com a nova pontuação
                 state['record'] = state['pontos']

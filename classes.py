@@ -74,8 +74,8 @@ class Planeta(pygame.sprite.Sprite):
         '''Classe para alterar a velocidade de lançamento dos projéteis que a estrela arremessa'''
         def __init__(self,raio, posicao):
             pygame.sprite.Sprite.__init__(self)
-            self.image = pygame.Surface((raio, raio))
-            self.image.fill(RED)
+            self.image = pygame.image.load(path / f"imagens/planeta.png")
+            self.image = pygame.transform.scale(self.image, (raio,raio))
 
             self.rect = self.image.get_rect()
             self.rect.centerx = posicao[0]

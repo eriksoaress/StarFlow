@@ -48,7 +48,7 @@ def inicializa():
  
 
 
-    assets = {"fundo":pygame.transform.scale(pygame.image.load('''wallpaper_estrelas.jpeg'''), (1280,720))
+    assets = {"fundo":pygame.transform.scale(pygame.image.load('''wallpaper_estrelas.jpeg'''), (1280,720)), "fundo_inicio": pygame.transform.scale(pygame.image.load('''wallpaper_inicio.png'''), (1280, 720))
     }
 
     state = {
@@ -76,7 +76,7 @@ def desenha(window: pygame.Surface, assets, state):
 
     if state['tela_inicial']:
         '''Desenha a tela inicial do jogo'''
-
+        window.blit(assets['fundo_inicio'], (0,0))
         fonte = pygame.font.SysFont('Arial', 40)
         iniciar_jogo = fonte.render('Iniciar jogo', True, COR_1)
         sair = fonte.render('Sair', True, COR_2)

@@ -48,7 +48,7 @@ def inicializa():
  
 
 
-    assets = {"fundo":pygame.transform.scale(pygame.image.load('''/home/fernando/Faculdade/3 semestre/Algelin. Teo. Info/aps0/jogo/StarFlow/wallpaper_estrelas.jpeg'''), (1280,720))
+    assets = {"fundo":pygame.transform.scale(pygame.image.load('''wallpaper_estrelas.jpeg'''), (1280,720))
     }
 
     state = {
@@ -168,7 +168,7 @@ def atualiza_estado(state):
         elif ev.type == pygame.MOUSEBUTTONUP:
             if ev.button == 1:
                 if state['arrastando'] == True:
-                    velocidade =  posicao_inicial_estrela - posicao_mouse 
+                    velocidade =  (posicao_inicial_estrela - posicao_mouse) *0.5
                     state['velocidade'] = velocidade
                     state['estrela'].update(state['velocidade'], state['atingiu'])
                     state['em_andamento'] = True

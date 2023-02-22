@@ -6,6 +6,7 @@ from constantes import*
 import numpy as np
 from pathlib import Path
 
+
 FPS = 60  # Frames per Second
 clock = pygame.time.Clock()
 
@@ -79,7 +80,7 @@ def inicializa():
         "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
         'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
         'font3':font3,'all_help_screen': all_help_screen, "fase": 1, "inicio_fase": True,
-        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras,'asteroide': asteroide,
+        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras,'poeira':poeira,'asteroide': asteroide,
          'asteroides': asteroides
      
     }
@@ -253,9 +254,13 @@ def atualiza_estado(state):
     if pygame.sprite.spritecollide(state['estrela'], state['alvos'], False) :
         state['pontos']+= 1
         state['alvo'].update()
+        state['poeira'].update()
+        for plan in state['planetas']:
+            plan.atualiza_posicao()
         state['velocidade'] *= 0
         state['estrela'].update(state['velocidade'],True)
         state['em_andamento'] = False
+        
     
     passou_da_tela = state['estrela'].update(state['velocidade'], False)
 

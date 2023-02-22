@@ -4,7 +4,7 @@ import variaveis
 import random
 from constantes import*
 import numpy as np
-
+import math
 SURFACE_COLOR = (167, 255, 100)
 
 
@@ -97,8 +97,8 @@ class Planeta(pygame.sprite.Sprite):
             
             
             state['velocidade']  = state['velocidade'] +  gravidade
-            state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.4*state['velocidade'][0]
-            state['estrela'].rect.centery = state['estrela'].rect.centery +  0.4*state['velocidade'][1]
+            state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.1*state['velocidade'][0]
+            state['estrela'].rect.centery = state['estrela'].rect.centery +  0.1*state['velocidade'][1]
    
 
 class Poeira(pygame.sprite.Sprite):
@@ -142,4 +142,17 @@ class Help(pygame.sprite.Sprite):
 
 
 
+class Asteroide(pygame.sprite.Sprite):
+    def __init__(self, posicao):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface((5,5))
+        self.image.fill(RED)
+        self.rect = self.image.get_rect()
+        self.rect.centerx = posicao[0] + 200
+        self.rect.centery = posicao[1] 
+
+    def update(self, posicao, angle):
+        
+        self.rect.centerx = posicao[0]  + 100*math.cos(math.radians(angle)) 
+        self.rect.centery = posicao[1] + 100*math.sin(math.radians(angle))
         

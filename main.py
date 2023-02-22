@@ -32,6 +32,9 @@ def inicializa():
     #Criando o objeto  planeta e adicionando no grupo de sprite planeta_grupo
 
     planeta = Planeta(raio_planeta, posicao_planeta)
+    asteroide = Asteroide(posicao_planeta)
+    asteroides = pygame.sprite.Group()
+    asteroides.add(asteroide)
 
     planetas= pygame.sprite.Group()
     planetas.add(planeta)
@@ -76,7 +79,8 @@ def inicializa():
         "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
         'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
         'font3':font3,'all_help_screen': all_help_screen, "fase": 1, "inicio_fase": True,
-        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras
+        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras,'asteroide': asteroide,
+         'asteroides': asteroides
      
     }
     return window, assets, state
@@ -86,6 +90,7 @@ def finaliza():
     '''Função utilizada para fechar o pygame'''
     pygame.quit()
 
+angle = 0
 def desenha(window: pygame.Surface, assets, state):
 
     global COR_1
@@ -183,6 +188,8 @@ def desenha(window: pygame.Surface, assets, state):
         state['alvos'].draw(window)
         state['planetas'].draw(window)
         state['poeiras'].draw(window)
+        state['asteroides'].draw(window)
+       
    
         if state['arrastando'] == True:
             color_line = min(((pygame.mouse.get_pos()[0]  - posicao_inicial_estrela[0])**2  + (pygame.mouse.get_pos()[1]  - posicao_inicial_estrela[1] )**2)**0.5, 255)
@@ -190,7 +197,7 @@ def desenha(window: pygame.Surface, assets, state):
             pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela, pygame.mouse.get_pos(), 2)
         
 
-    if state['pontos']/state['fase'] > 5 :
+    if state['pontos']/state['fase'] > 5 and len(state['planeta']) < 3 :
         planeta = gera_planeta(random.randint(20, 50), np.array([random.randint(400, 1100), random.randint(100, 650)]))
         state['planeta'].append(planeta)
         state['planetas'].add(planeta)
@@ -202,6 +209,7 @@ def desenha(window: pygame.Surface, assets, state):
 
 def atualiza_estado(state):
     global velocidade
+    global angle
     '''Função utilizada para atualizar os estados do jogo'''
   
     for ev in pygame.event.get():
@@ -254,9 +262,13 @@ def atualiza_estado(state):
     if state['em_andamento']:
             for i in range(state['fase']):
                 state['planeta'][i].update(state)
+
+    state['asteroide'].update(posicao_planeta, angle)
+    
+    angle += 1
        
 
-
+    
 
     # state['planeta'].update(state['velocidade'],np.array([state['estrela_obj'].rect.centerx, state['estrela_obj'].rect.centery]), state['estrela_obj'])
     if passou_da_tela:
@@ -272,12 +284,6 @@ def atualiza_estado(state):
         state['pontos'] = 0
    
 
-
-
-            
-    
-    
-        
 
     return True
 

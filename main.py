@@ -183,6 +183,7 @@ def desenha(window: pygame.Surface, assets, state):
       
         if state['arrastando'] == True:
             pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
+            
         state['estrelas'].draw(window)
         
         state['alvos'].draw(window)

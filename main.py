@@ -255,8 +255,6 @@ def atualiza_estado(state):
         state['pontos']+= 1
         state['alvo'].update()
         state['poeira'].update()
-        for plan in state['planetas']:
-            plan.atualiza_posicao()
         state['velocidade'] *= 0
         state['estrela'].update(state['velocidade'],True)
         state['em_andamento'] = False

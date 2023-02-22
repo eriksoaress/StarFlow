@@ -81,9 +81,6 @@ class Planeta(pygame.sprite.Sprite):
             state['estrela'].rect.centerx = state['estrela'].rect.centerx +  0.1*state['velocidade'][0]
             state['estrela'].rect.centery = state['estrela'].rect.centery +  0.1*state['velocidade'][1]
 
-        def atualiza_posicao(self):
-            self.rect.center = np.array([random.randint(400, int(1280-variaveis.raio_planeta/2)), random.randint(int(variaveis.raio_planeta/2), int(720-variaveis.raio_planeta/2))])    
-   
 
 class Poeira(pygame.sprite.Sprite):
         '''Classe para alterar as propriedades das poeiras'''

@@ -180,8 +180,7 @@ def desenha(window: pygame.Surface, assets, state):
         posicao_texto = pontos_texto.get_rect()
         posicao_texto.topright = (1270, 0)
         window.blit(pontos_texto, posicao_texto)
-        if state['arrastando'] == True:
-            pygame.draw.circle(window, (255,255,255), posicao_inicial_estrela, 3)
+      
         if state['arrastando'] == True:
             pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
         state['estrelas'].draw(window)

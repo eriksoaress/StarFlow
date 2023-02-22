@@ -7,10 +7,6 @@ import numpy as np
 import math
 SURFACE_COLOR = (167, 255, 100)
 
-
-
-    
-
 class Estrela(pygame.sprite.Sprite):
         '''Classe para criar a estrela, o objeto que disparará no alvo'''
         def __init__(self):
@@ -24,10 +20,7 @@ class Estrela(pygame.sprite.Sprite):
             self.rect.centerx = posicao_inicial_estrela[0]
             self.rect.centery = posicao_inicial_estrela[1]
 
-            
-            
-          
-            
+
         def update(self, velocidade ,atingiu):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
 
@@ -44,12 +37,6 @@ class Estrela(pygame.sprite.Sprite):
                 return True
             # Nova posição da estrela
            
-    
-        
-       
-            
-
-
 
 class Alvo(pygame.sprite.Sprite):
         '''Classe para criar o alvo'''
@@ -60,10 +47,7 @@ class Alvo(pygame.sprite.Sprite):
           
             self.rect = self.image.get_rect()
             self.rect.center = np.array([1230,HEIGHT/2])
-
-            
-            
-          
+   
             
         def update(self):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
@@ -80,15 +64,12 @@ class Planeta(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
             self.rect.centerx = posicao[0]
             self.rect.centery = posicao[1]
-           
- 
-
-            
+    
         def update(self, state):
             vetor_planeta_estrela = np.array([self.rect.centerx, self.rect.centery]) - np.array([state['estrela'].rect.centerx, state['estrela'].rect.centery])
             direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela)
             DT = 100000/np.linalg.norm(vetor_planeta_estrela)**2
-            gravidade = DT * direcao_gravidade
+            gravidade = 0.5*DT * direcao_gravidade
 
             if pygame.sprite.spritecollide(state['estrela'], state['poeiras'], False) :
                 state['velocidade']   = state['velocidade']*0.9 +  gravidade
@@ -142,8 +123,6 @@ class Help(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg')
         self.rect = self.image.get_rect()
-
-
 
 class Asteroide(pygame.sprite.Sprite):
     def __init__(self, posicao):

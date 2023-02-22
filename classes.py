@@ -69,10 +69,10 @@ class Planeta(pygame.sprite.Sprite):
             vetor_planeta_estrela = np.array([self.rect.centerx, self.rect.centery]) - np.array([state['estrela'].rect.centerx, state['estrela'].rect.centery])
             direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela)
             DT = 100000/np.linalg.norm(vetor_planeta_estrela)**2
-            gravidade = 0.5*DT * direcao_gravidade
+            gravidade = 0.2*DT * direcao_gravidade
 
             if pygame.sprite.spritecollide(state['estrela'], state['poeiras'], False) :
-                state['velocidade']   = state['velocidade']*0.9 +  gravidade
+                state['velocidade']   = state['velocidade']*0.99 +  gravidade
             else:
                 state['velocidade']  = state['velocidade'] +  gravidade
             
@@ -82,7 +82,7 @@ class Planeta(pygame.sprite.Sprite):
             state['estrela'].rect.centery = state['estrela'].rect.centery +  0.1*state['velocidade'][1]
 
         def atualiza_posicao(self):
-            self.rect.center = np.array([random.randint(int(variaveis.raio_planeta/2), int(1280-variaveis.raio_planeta/2)), random.randint(int(variaveis.raio_planeta/2), int(720-variaveis.raio_planeta/2))])            
+            self.rect.center = np.array([random.randint(400, int(1280-variaveis.raio_planeta/2)), random.randint(int(variaveis.raio_planeta/2), int(720-variaveis.raio_planeta/2))])    
    
 
 class Poeira(pygame.sprite.Sprite):
@@ -127,8 +127,8 @@ class Help(pygame.sprite.Sprite):
 class Asteroide(pygame.sprite.Sprite):
     def __init__(self, posicao):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((5,5))
-        self.image.fill(RED)
+        self.image = pygame.image.load(path / 'imagens/asteroide.png')
+        self.image = pygame.transform.scale(self.image, (5,5))
         self.rect = self.image.get_rect()
         self.rect.centerx = posicao[0] + 200
         self.rect.centery = posicao[1] 

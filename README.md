@@ -10,7 +10,7 @@ Mas Star não desistia facilmente. Com muita astúcia e estratégia, ela aprende
 Sua fama como a melhor atleta espacial da galáxia se espalhou rapidamente, e agora Star é a estrela mais querida e admirada em todos os planetas, sendo convidada para competições em todo o universo.
 
 Venha se juntar a Star e ajudá-la a mostrar suas habilidades em StarFlow, o jogo intergaláctico de precisão e estratégia!
-
+<h2> Pra fim de conversa... </h2>
 Bem-vindo ao incrível jogo "StarFlow"! Você está preparado para uma jornada intergaláctica em que terá que lançar uma estrela em um alvo, enfrentando planetas que tentarão atrapalhar seu caminho com sua gravidade?
 
 Desafie-se e teste suas habilidades enquanto tenta acertar o alvo e coletar o máximo de pontos possível. Mas cuidado com os planetas - eles podem ser um obstáculo perigoso no seu caminho! Use sua estratégia e precisão para desviar das forças gravitacionais e manter sua estrela no rumo certo.

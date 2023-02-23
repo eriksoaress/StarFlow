@@ -1,4 +1,4 @@
-# StarFlow: Um jogo intergaláctico de precisão e estratégia
+# <h1 style:"{color:blue}" > StarFlow: Um jogo intergaláctico de precisão e estratégia</h1>
 
 Bem-vindo ao incrível jogo "StarFlow"! Você está preparado para uma jornada intergaláctica em que terá que lançar uma estrela em um alvo, enfrentando planetas que tentarão atrapalhar seu caminho com sua gravidade?
 

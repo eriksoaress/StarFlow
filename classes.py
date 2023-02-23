@@ -115,8 +115,11 @@ class Poeira(pygame.sprite.Sprite):
             
         def update(self):
             # Define uma nova posição aleatória para a poeira
-            self.rect.center = np.array([random.randint(int(variaveis.raio_poeira/2), int(1280-variaveis.raio_poeira/2)), random.randint(int(variaveis.raio_poeira/2), int(720-variaveis.raio_poeira/2))])
-                        
+            self.rect.centery = self.rect.centery + 1
+            #self.rect.center = np.array([random.randint(int(variaveis.raio_poeira/2), int(1280-variaveis.raio_poeira/2)), random.randint(int(variaveis.raio_poeira/2), int(720-variaveis.raio_poeira/2))])
+            if self.rect.centery > 720:
+                self.rect.centery = -30
+                self.rect.centerx = random.randint(int(variaveis.raio_poeira/2) +400, int(1280-variaveis.raio_poeira/2))
             
 class Tela_inicial(pygame.sprite.Sprite):
     '''Classe para criar a tela inicial'''
@@ -150,18 +153,58 @@ class Help(pygame.sprite.Sprite):
 
 class Asteroide(pygame.sprite.Sprite):
     '''Classe para criar os asteroides e movê-los em torno do planeta'''
-    def __init__(self, posicao):
+    def __init__(self,raio, posicao, angle, increment):
         pygame.sprite.Sprite.__init__(self)
         # Carregando a imagem do asteroide e escalonando
-        self.image = pygame.image.load(path / 'imagens/asteroide.png')
-        self.image = pygame.transform.scale(self.image, (5,5))
+        self.image = pygame.image.load(path / f'imagens/asteroide{random.randint(1,2)}.png')
+        self.image = pygame.transform.scale(self.image, (raio,raio))
         # Definindo a posição do asteroide
         self.rect = self.image.get_rect()
         self.rect.centerx = posicao[0] + 200
         self.rect.centery = posicao[1] 
+        self.angle = angle
+        self.increment = increment
 
-    def update(self, posicao, angle):
+    def update(self, posicao):
         # Atualizando a posição do asteroide de acordo com o ângulo e a posição do planeta
-        self.rect.centerx = posicao[0]  + 100*math.cos(math.radians(angle)) 
-        self.rect.centery = posicao[1] + 100*math.sin(math.radians(angle))
+        self.rect.centerx = posicao[0]  + 100*math.cos(math.radians(self.angle)) 
+        self.rect.centery = posicao[1] + 100*math.sin(math.radians(self.angle))
+        self.angle = self.angle + self.increment
         
+
+class Vida(pygame.sprite.Sprite):
+    '''Classe para criar os corações que representam as vidas do jogador'''
+    def __init__(self,num):
+        pygame.sprite.Sprite.__init__(self)
+        
+        # Carregando a imagem do coração e escalonando
+        self.image = pygame.image.load(path / f'imagens/vida{num}.png')
+        self.image = pygame.transform.scale(self.image, (250,200))
+        # Definindo a posição do coração
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 120
+        self.rect.centery = 50
+    def update(self,num):
+        self.image = pygame.image.load(path / f'imagens/vida{num}.png')
+        self.image = pygame.transform.scale(self.image, (250,200))
+        # Definindo a posição do coração
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 120
+        self.rect.centery = 50
+    
+class Game_over(pygame.sprite.Sprite):
+    '''Classe para criar a tela de game over'''
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        
+        # Carregando a imagem de fundo da tela de game over
+        self.image =pygame.Surface((1280,720))
+        self.image.fill((0,0,0))
+        self.image.set_alpha(200)
+
+        
+        # Definindo o retângulo da imagem
+        self.rect = self.image.get_rect()
+        self.rect.centerx = 640
+        self.rect.centery = 360
+

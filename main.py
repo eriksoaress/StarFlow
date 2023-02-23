@@ -5,21 +5,38 @@ from variaveis import *
 from constantes import*
 import numpy as np
 from pathlib import Path
-
-
+import random
+import time
 FPS = 60  # Frames per Second
 clock = pygame.time.Clock()
+
+
+def reset_game(window,assets, state):
+    gameloop(window, assets, state)
 
 def gera_planeta(raio, posicao):
     '''Função que gera o planeta'''
     planeta = Planeta(raio, posicao)
     return planeta
-
+def gera_asteroide(raio, posicao):
+    '''Função que gera o asteroide'''
+    angle = random.random()
+    increment = random.random()
+    print(angle)
+    asteroide = Asteroide(raio, posicao,angle, max(0.3,increment) )
+    return asteroide
 def inicializa():
     # Inicializa o Pygame
   
     pygame.init()
-   
+
+    vida = Vida(5)
+    vidas = pygame.sprite.Group()
+    vidas.add(vida)
+
+    game_over = Game_over()
+    game_overs = pygame.sprite.Group()
+    game_overs.add(game_over)
     '''Função que inicializa todos os assets e states do jogo'''
     window = pygame.display.set_mode((WIDTH, HEIGHT), flags=pygame.SCALED)
     #Criando o objeto estrela e adicionando no grupo de sprite estrelas
@@ -33,7 +50,9 @@ def inicializa():
     #Criando o objeto  planeta e adicionando no grupo de sprite planeta_grupo
 
     planeta = Planeta(raio_planeta, posicao_planeta)
-    asteroide = Asteroide(posicao_planeta)
+    angle = random.random()
+    increment = random.random()
+    asteroide = Asteroide(5,posicao_planeta, angle, max(0.3, 0.7*increment))
     asteroides = pygame.sprite.Group()
     asteroides.add(asteroide)
 
@@ -67,12 +86,16 @@ def inicializa():
     help_screen = Help()
     all_help_screen.add(help_screen)
 
+    selecionar = pygame.mixer.Sound(path / "som/selecionar.mp3")
+   
+
     
 
 
     assets = {"fundo":pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg'), (1280,720))
     , "fundo_instrucoes": pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_instrucoes.jpeg'), (1280,720)),
-    'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)), }
+    'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)),"selecionar": selecionar }
+    contador = 0
 
     
 
@@ -83,8 +106,9 @@ def inicializa():
         "tela_inicial": True, "tela_final": False, "tela_jogo": False, "tela_instrucoes": False, "tela_creditos": False,
         'play_again_rect': play_again_rect, 'exit_rect': exit_rect,'principal_menu_rect': principal_menu_rect, 'screen_help_rect': screen_help_rect,
         'font3':font3,'all_help_screen': all_help_screen, "fase": 1, "inicio_fase": True,
-        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras,'poeira':poeira,'asteroide': asteroide,
-         'asteroides': asteroides
+        'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras,'poeira':poeira,'asteroide': [asteroide],
+         'asteroides': asteroides, 'contador': contador, 'vidas': vidas, 'vida': vida, 'num_vidas': 5, "fim_de_jogo":False, 'game_overs':game_overs, 'game_over':game_over,
+         'acertou_3_seguidas':0
      
     }
     return window, assets, state
@@ -137,17 +161,23 @@ def desenha(window: pygame.Surface, assets, state):
 
         # Verifica se o mouse está sobre um dos botões e altera a cor do texto
         if posicao_iniciar_jogo.collidepoint(pygame.mouse.get_pos()):
+            
+          
+            
             COR_1 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
                 # Inicia o jogo
+                assets['selecionar'].play()
                 state['tela_inicial'] = False
                 state['tela_jogo'] = True
         else:
             COR_1 = (255, 255, 255)
 
         if posicao_sair.collidepoint(pygame.mouse.get_pos()):
+           
             COR_2 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
+                assets['selecionar'].play()
                 # Finaliza o jogo
                 
                 finaliza()
@@ -155,8 +185,10 @@ def desenha(window: pygame.Surface, assets, state):
             COR_2 = (255, 255, 255)
         
         if posicao_instrucoes.collidepoint(pygame.mouse.get_pos()):
+            
             COR_3 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
+                assets['selecionar'].play()
                 # Abre a tela de instruções
                 state['tela_inicial'] = False
                 state['tela_instrucoes'] = True
@@ -216,12 +248,14 @@ def desenha(window: pygame.Surface, assets, state):
         if state['arrastando'] == True:
             pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
 
+
         # Desenha todos os sprites na tela
         state['estrelas'].draw(window)
         state['alvos'].draw(window)
         state['planetas'].draw(window)
         state['poeiras'].draw(window)
         state['asteroides'].draw(window)
+        state['vidas'].draw(window)
 
         # Desenha uma linha colorida quando o jogador arrasta uma estrela
        
@@ -232,11 +266,15 @@ def desenha(window: pygame.Surface, assets, state):
             color_line = min(((pygame.mouse.get_pos()[0]  - posicao_inicial_estrela[0])**2  + (pygame.mouse.get_pos()[1]  - posicao_inicial_estrela[1] )**2)**0.5, 255)
 
             pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela, pygame.mouse.get_pos(), 2)
+            pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela + np.array([0,-15]), pygame.mouse.get_pos() + np.array([0,-2]), 2)
         
     #Gera novos planetas se a pontuação dividida pela fase atual for maior do que 5 e o número de planetas for menor do que 3
     if state['pontos']/state['fase'] > 5 and len(state['planeta']) < 3 :
         #Gera um novo planeta com tamanho entre 20 e 50 pixels e posição aleatória na tela
         planeta = gera_planeta(random.randint(20, 50), np.array([random.randint(400, 1100), random.randint(100, 650)]))
+        asteroide = gera_asteroide(random.randint(5, 10), np.array([planeta.rect.centerx, planeta.rect.centery]))
+        state['asteroide'].append(asteroide)
+        state['asteroides'].add(asteroide)
         #Adiciona o planeta na lista de planetas do jogo
         state['planeta'].append(planeta)
         #Adiciona o planeta ao grupo de sprites de planetas
@@ -244,8 +282,76 @@ def desenha(window: pygame.Surface, assets, state):
         #Incrementa a fase atual do jogo
         state['fase'] += 1
 
+    if state['fim_de_jogo']:
+        
+        # Desenha a tela inicial do jogo
+        window.blit(assets['fundo_inicio'], (0,0))
+        
+        # Define as fontes utilizadas na tela inicial
+        fonte_game_over = pygame.font.SysFont('Arial', 90)
+        fonte = pygame.font.SysFont('Arial', 40)
+        fonte_pontos = pygame.font.SysFont('Arial', 95)
+
+        # Renderiza os textos da tela inicial
+        game_over = fonte.render('Game over', True,(255, 255, 255))
+        jogar_novamente = fonte.render('Jogar novamente', True, COR_1)
+        menu_principal = fonte.render('Menu Principal', True, COR_2)
+        sair = fonte.render('Sair', True, COR_3)
+
+        pontos_record = fonte_pontos.render('Record: {}'.format(state['record']), True, (255, 255, 255))
+
+        # Obtém as posições dos textos e retangulos
+        posicao_game_over = game_over.get_rect(center = (640, 50))
+        posicao_jogar_novamente = jogar_novamente.get_rect(center = (640, 350))
+        posicao_sair = sair.get_rect( center = (640, 450))
+        posicao_record = pontos_record.get_rect(center = (640, 200))
 
 
+        # Desenha os textos na tela
+        window.blit(game_over, posicao_game_over)
+        window.blit(sair, posicao_sair)
+        window.blit(pontos_record, posicao_record)
+        window.blit(jogar_novamente, posicao_jogar_novamente)
+       
+        # Verifica se o mouse está sobre um dos botões e altera a cor do texto
+        if posicao_jogar_novamente.collidepoint(pygame.mouse.get_pos()):
+            
+          
+            
+            COR_1 = (255, 0, 0)
+            if pygame.mouse.get_pressed()[0]:
+                # Inicia o jogo
+                assets['selecionar'].play()
+                window,assets, state = inicializa()
+                reset_game(window, assets, state)
+                finaliza()
+        else:
+            COR_1 = (255, 255, 255)
+
+        
+        
+        if posicao_sair.collidepoint(pygame.mouse.get_pos()):
+            
+            COR_3 = (255, 0, 0)
+            if pygame.mouse.get_pressed()[0]:
+                assets['selecionar'].play()
+                # Abre a tela de instruções
+                state['tela_jogo'] = False
+                state['fim_de_jogo'] = False
+                finaliza()
+        else:
+            COR_3 = (255, 255, 255)
+
+
+        # Define a fonte e tamanho da fonte para o texto 'Voltar'
+        fonte = pygame.font.SysFont('Arial', 40)
+    if state['acertou_3_seguidas'] == 3:
+        if state['num_vidas']< 5:
+            state['vida'].update(state['num_vidas'] + 1)
+            state['num_vidas'] += 1
+            state['acertou_3_seguidas'] = 0
+
+    # Atualiza a tela
     pygame.display.update()
 
 def atualiza_estado(state):
@@ -302,17 +408,19 @@ def atualiza_estado(state):
             state['estrela'].rect.center = pygame.mouse.get_pos()
     
                    
-                    
-                        
+    if state['contador']%5 == 0 :    
+        state['poeira'].update()  
+    state['contador'] += 1        
               
     # Verifica se houve colisão entre a estrela e os alvos
     if pygame.sprite.spritecollide(state['estrela'], state['alvos'], False):
+        state['acertou_3_seguidas'] += 1
         # Adiciona um ponto
         state['pontos'] += 1
         # Atualiza a posição do alvo
         state['alvo'].update()
         # Atualiza a posição da poeira
-        state['poeira'].update()
+        #state['poeira'].update()
         # Zera a velocidade
         state['velocidade'] *= 0
         # Atualiza a posição da estrela
@@ -322,21 +430,17 @@ def atualiza_estado(state):
 
     # Verifica se a estrela passou da tela
     passou_da_tela = state['estrela'].update(state['velocidade'], False)
-
-    # Verifica se o jogo está em andamento
-    if state['em_andamento']:
-        # Atualiza a posição dos planetas
-        for i in range(state['fase']):
-            state['planeta'][i].update(state)
-
-    # Atualiza a posição do asteroide
-    state['asteroide'].update(posicao_planeta, angle)
-
-    # Incrementa o ângulo
-    angle += 1
-
-    # Verifica se a estrela passou da tela
+  
     if passou_da_tela:
+        
+        state['acertou_3_seguidas'] = 0
+
+        if state['num_vidas'] > 1:
+            state['num_vidas'] -= 1
+        else:
+            state['tela_jogo'] = False
+            state['fim_de_jogo'] = True
+        state['vida'].update(state['num_vidas'])
         # Zera a velocidade
         state['velocidade'] *= 0
         # Define que o jogo não está mais em andamento
@@ -351,8 +455,25 @@ def atualiza_estado(state):
             # Atualiza o recorde com a nova pontuação
             state['record'] = state['pontos']
 
-        # Zera a pontuação atual
-        state['pontos'] = 0
+        # Diminui um ponto da pontuação
+        if state['pontos'] > 0:
+            state['pontos'] -= 1
+
+    # Verifica se o jogo está em andamento
+    if state['em_andamento']:
+        # Atualiza a posição dos planetas
+        for i in range(state['fase']):
+            state['planeta'][i].update(state)
+
+    # Atualiza a posição do asteroide
+    for i in range(state['fase']):
+        state['asteroide'][i].update(np.array([state['planeta'][i].rect.centerx, state['planeta'][i].rect.centery ]))
+    
+
+   
+
+    # Retorna "True" para indicar que o jogo continua em andamento
+    
     return True
 
 def gameloop(window, assets, state):

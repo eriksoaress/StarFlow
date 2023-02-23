@@ -42,16 +42,16 @@ Após instalar o pygame, entre pelo temrinal na pasta que você extraiu o jogo e
 <p> O jogo irá executar e você já vai poder saboreá-lo </p>
 <h2>Mecânica do jogo</h2>
 <h4> Controles</h4>
-<p> O jogo todo será controlado com o mouse, segure a estrela e puxe-a. Quanto mais distante você puxar, com maior velocidade a estrela será lançada. A direção da estrela se dará com a direção que você puxá-la.
+<p> O jogo é controlado inteiramente pelo mouse. Segure a estrela e arraste-a para trás para lançá-la. Quanto mais longe você puxar, maior a velocidade que a estrela será lançada. A direção da estrela será determinada pela direção em que você a puxar.
  <h4>Planetas</h4>
- <p> Os planetas estarão para atrapalhar seu caminho. Eles exercem força gravitacional na estrela, fazendo seu caminho ser desviado</p>
+ <p> Os planetas estão lá para dificultar o seu caminho, exercendo força gravitacional sobre a estrela e fazendo-a desviar de seu curso.</p>
  <h4> Poeiras cósmicas</h4>
- <p>Cuidado com as poeiras cósmicas, ela diminui a velocidade da estrela, quando passa sobre elas. Então, use sua estratégia para usá-las a seu favor</p>
+ <p>Cuidado com as poeiras cósmicas, ela diminui a velocidade da estrela, quando passa sobre elas. Então, tenha estratégia para usá-las a seu favor</p>
  <h4> Níveis</h4> 
- <p> Você tem 5 vidas, toda vez que você erra o alvo, uma vida será gastada. Existem 3 níveis,  à medida que você passa de nível, a quantidade de planetas vão aumentando, dificultando ainda mais acertar o alvo</p>
+ <p> Você começa com 5 vidas. Cada vez que você erra o alvo, perde uma vida. Existem 3 níveis diferentes, e à medida que você avança, o número de planetas aumenta, tornando mais difícil atingir o alvo.
+</p>
  <h4>O alvo e sistema de pontuações</h4>
- <p> O alvo consiste em um objeto, uma nave. Toda vez que a estrela atinge o alvo, você ganha um ponto. Se erra, perde um ponto. Se acerta 3 vezes em seguida, ganha uma vida(se tiver vidas faltando). O jogo consiste em conseguir a maior pontuação. Se perder todas as vidas, o jogo acaba.Venha, desafie seus amigos!
-
+ <p> O alvo consiste em um objeto, uma nave. Toda vez que a estrela atinge o alvo, você ganha um ponto. Se erra, perde um ponto. Se acerta 3 vezes em seguida, ganha uma vida(se tiver vidas faltando). O jogo consiste em conseguir a maior pontuação. Se você perder todas as suas vidas, o jogo acaba. Desafie seus amigos e veja quem consegue a melhor pontuação!
 Integrantes:
 Erik Leonardo Soares de Oliveira
 Fernando Vieira dos Santos

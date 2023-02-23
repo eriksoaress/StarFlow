@@ -93,7 +93,7 @@ def inicializa():
 
 
     assets = {"fundo":pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg'), (1280,720))
-    , "fundo_instrucoes": pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_instrucoes.jpeg'), (1280,720)),
+    , "fundo_instrucoes": pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_instrucoes.png'), (1280,720)),
     'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)),"selecionar": selecionar }
     contador = 0
 
@@ -210,21 +210,22 @@ def desenha(window: pygame.Surface, assets, state):
         posicao_voltar = voltar.get_rect()
 
         # Define a posição da imagem de 'Voltar' no canto superior direito da tela
-        posicao_voltar.topright = (700, 600)
+        posicao_voltar.topright = (1150, 580)
 
         # Desenha a imagem de fundo da tela de instruções na janela
         window.blit(assets['fundo_instrucoes'], (0,0))
 
-        # Desenha a imagem de 'Voltar' na janela na posição definida
-        window.blit(voltar, posicao_voltar)
-
         # Verifica se o mouse está sobre a imagem de 'Voltar'
         if posicao_voltar.collidepoint(pygame.mouse.get_pos()):
+            voltar = fonte.render('Voltar', True, (255,0,0))
             # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
                 # Define as variáveis de estado para retornar à tela inicial
                 state['tela_inicial'] = True
                 state['tela_instrucoes'] = False
+
+        # Desenha a imagem de 'Voltar' na janela na posição definida
+        window.blit(voltar, posicao_voltar)
 
         
         

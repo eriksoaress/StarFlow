@@ -29,7 +29,7 @@ Clique em Code
 <h3>Passo 3</h3>
 <p>Baixe o arquivo zipado</p>
 
-<img src="https://github.com/eriksoaress/StarFlow/blob/fernandovs4-patch-1/WhatsApp%20Image%202023-02-22%20at%2021.56.23.jpeg" alt="Nome da imagem" width="500">
+<img src="https://github.com/eriksoaress/StarFlow/blob/fernandovs4-patch-1/WhatsApp%20Image%202023-02-22%20at%2021.59.14.jpeg" alt="Nome da imagem" width="500">
 
 <h3> Passo 4</h3>
 Após baixar, descompcte em um local de sua preferência. 

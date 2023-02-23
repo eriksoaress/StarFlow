@@ -53,6 +53,6 @@ Após instalar o pygame, entre pelo temrinal na pasta que você extraiu o jogo e
  <h4>O alvo e sistema de pontuações</h4>
  <p> O alvo consiste em um objeto, uma nave. Toda vez que a estrela atinge o alvo, você ganha um ponto. Se erra, perde um ponto. Se acerta 3 vezes em seguida, ganha uma vida(se tiver vidas faltando). O jogo consiste em conseguir a maior pontuação. Se você perder todas as suas vidas, o jogo acaba. Desafie seus amigos e veja quem consegue a melhor pontuação!
  
-<h3>Integrantes:</h3>
+<h3>Autores:</h3>
 <p>Erik Leonardo Soares de Oliveira</p>
 <p>Fernando Vieira dos Santos</p>

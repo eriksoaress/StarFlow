@@ -2,6 +2,15 @@
 
 <h1 >StarFlow: Um jogo intergaláctico de precisão e estratégia</h1>
 
+<h2> Pra começo de conversa...</h2>
+Era uma vez em uma galáxia muito, muito distante, uma estrela chamada Star, que sempre sonhou em ser uma atleta espacial. Ela treinava todos os dias para lançar-se em direção ao alvo com a maior precisão possível, mas havia um problema: no caminho, havia planetas malvados que tentavam desviá-la de seu caminho!
+
+Mas Star não desistia facilmente. Com muita astúcia e estratégia, ela aprendeu a contornar os planetas e usar sua gravidade a seu favor, tornando-se cada vez mais precisa e habilidosa em seus lançamentos.
+
+Sua fama como a melhor atleta espacial da galáxia se espalhou rapidamente, e agora Star é a estrela mais querida e admirada em todos os planetas, sendo convidada para competições em todo o universo.
+
+Venha se juntar a Star e ajudá-la a mostrar suas habilidades em StarFlow, o jogo intergaláctico de precisão e estratégia!
+
 Bem-vindo ao incrível jogo "StarFlow"! Você está preparado para uma jornada intergaláctica em que terá que lançar uma estrela em um alvo, enfrentando planetas que tentarão atrapalhar seu caminho com sua gravidade?
 
 Desafie-se e teste suas habilidades enquanto tenta acertar o alvo e coletar o máximo de pontos possível. Mas cuidado com os planetas - eles podem ser um obstáculo perigoso no seu caminho! Use sua estratégia e precisão para desviar das forças gravitacionais e manter sua estrela no rumo certo.

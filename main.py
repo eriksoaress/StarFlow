@@ -86,9 +86,12 @@ def inicializa():
     help_screen = Help()
     all_help_screen.add(help_screen)
 
+    # Carrega os sons, define as alturas, e cria os diferentes canais
     selecionar = pygame.mixer.Sound(path / "som/selecionar.mp3")
-    bomb = (pygame.mixer.Sound(path / "som/bomb.ogg"))
+    bomb = pygame.mixer.Sound(path / "som/bomb.ogg")
+    trilha = pygame.mixer.Sound(path / "som/trilha.ogg")
     bomb.set_volume(0.1)
+
    
 
     
@@ -96,7 +99,8 @@ def inicializa():
 
     assets = {"fundo":pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg'), (1280,720))
     , "fundo_instrucoes": pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_instrucoes.png'), (1280,720)),
-    'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)),"selecionar": selecionar, "bomb": bomb }
+    'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)),"selecionar": selecionar, "bomb": bomb,
+    "trilha": trilha, "trilha_sonora": pygame.mixer.Channel(0), "efeitos_sonoros":pygame.mixer.Channel(1)}
     contador = 0
 
     
@@ -122,6 +126,8 @@ def finaliza():
 
 angle = 0
 def desenha(window: pygame.Surface, assets, state):
+    if not assets['trilha_sonora'].get_busy():
+        assets['trilha_sonora'].play(assets['trilha'], loops=-1)
 
     
     # Define as cores globais para serem utilizadas na tela inicial
@@ -169,7 +175,7 @@ def desenha(window: pygame.Surface, assets, state):
             COR_1 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
                 # Inicia o jogo
-                assets['selecionar'].play()
+                assets['efeitos_sonoros'].play(assets['selecionar'])
                 state['tela_inicial'] = False
                 state['tela_jogo'] = True
         else:
@@ -179,7 +185,7 @@ def desenha(window: pygame.Surface, assets, state):
            
             COR_2 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
-                assets['selecionar'].play()
+                assets['efeitos_sonoros'].play(assets['selecionar'])
                 # Finaliza o jogo
                 
                 finaliza()
@@ -190,7 +196,7 @@ def desenha(window: pygame.Surface, assets, state):
             
             COR_3 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
-                assets['selecionar'].play()
+                assets['efeitos_sonoros'].play(assets['selecionar'])
                 # Abre a tela de instruções
                 state['tela_inicial'] = False
                 state['tela_instrucoes'] = True
@@ -225,7 +231,7 @@ def desenha(window: pygame.Surface, assets, state):
                 # Define as variáveis de estado para retornar à tela inicial
                 state['tela_inicial'] = True
                 state['tela_instrucoes'] = False
-                assets['selecionar'].play()
+                assets['efeitos_sonoros'].play(assets['selecionar'])
 
         # Desenha a imagem de 'Voltar' na janela na posição definida
         window.blit(voltar, posicao_voltar)
@@ -325,7 +331,7 @@ def desenha(window: pygame.Surface, assets, state):
             COR_1 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
                 # Inicia o jogo
-                assets['selecionar'].play()
+                assets['efeitos_sonoros'].play(assets['selecionar'])
                 window,assets, state = inicializa()
                 reset_game(window, assets, state)
                 finaliza()
@@ -338,7 +344,7 @@ def desenha(window: pygame.Surface, assets, state):
             
             COR_3 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
-                assets['selecionar'].play()
+                assets['efeitos_sonoros'].play(assets['selecionar'])
                 # Abre a tela de instruções
                 state['tela_jogo'] = False
                 state['fim_de_jogo'] = False
@@ -418,7 +424,7 @@ def atualiza_estado(state):
               
     # Verifica se houve colisão entre a estrela e os alvos
     if pygame.sprite.spritecollide(state['estrela'], state['alvos'], False):
-        assets['bomb'].play()
+        assets['efeitos_sonoros'].play(assets['bomb'])
         state['acertou_3_seguidas'] += 1
         # Adiciona um ponto
         state['pontos'] += 1

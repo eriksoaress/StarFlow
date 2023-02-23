@@ -19,7 +19,7 @@ Com gráficos incríveis e trilha sonora cativante, você irá se sentir imerso 
 
 Então, prepare-se para uma jornada pelo espaço sideral e mostre suas habilidades em "StarFlow"!
 
-<h2> Funcionamento</h2>
+<h2> Como rodar o jogo</h2>
 O jogo StarFlow funciona rodando o código python. Para jogar, é necessário baixar os arquivos neste repositório, ter o python instalado em sua máquina. É necessário também instalar a biblioteca pygame. Segue como fazer os procedimentos descrito acima:
 <h3>Passo 1</h3>
 <p>Entre no repositório do <a href:"https://github.com/eriksoaress/StarFlow/">StarFlow</a></p>

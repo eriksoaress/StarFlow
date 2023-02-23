@@ -1,12 +1,6 @@
-<style>
-  .titulo {
-    color: blue;
-    background-color: #eee;
-    padding: 10px;
-  }
-</style>
 
-<h1 class="titulo">StarFlow: Um jogo intergaláctico de precisão e estratégia</h1>
+
+<h1 >StarFlow: Um jogo intergaláctico de precisão e estratégia</h1>
 
 Bem-vindo ao incrível jogo "StarFlow"! Você está preparado para uma jornada intergaláctica em que terá que lançar uma estrela em um alvo, enfrentando planetas que tentarão atrapalhar seu caminho com sua gravidade?
 

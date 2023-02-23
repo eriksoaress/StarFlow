@@ -176,7 +176,6 @@ def desenha(window: pygame.Surface, assets, state):
             COR_1 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
                 # Inicia o jogo
-                assets['efeitos_sonoros'].play(assets['selecionar'])
                 state['tela_inicial'] = False
                 state['tela_jogo'] = True
         else:
@@ -187,6 +186,7 @@ def desenha(window: pygame.Surface, assets, state):
             COR_2 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
                 assets['efeitos_sonoros'].play(assets['selecionar'])
+                time.sleep(0.3)
                 # Finaliza o jogo
                 
                 finaliza()
@@ -198,6 +198,7 @@ def desenha(window: pygame.Surface, assets, state):
             COR_3 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
                 assets['efeitos_sonoros'].play(assets['selecionar'])
+                time.sleep(0.3)
                 # Abre a tela de instruções
                 state['tela_inicial'] = False
                 state['tela_instrucoes'] = True
@@ -230,10 +231,10 @@ def desenha(window: pygame.Surface, assets, state):
             # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
                 # Define as variáveis de estado para retornar à tela inicial
+                assets['efeitos_sonoros'].play(assets['selecionar'])
+                time.sleep(0.3)
                 state['tela_inicial'] = True
                 state['tela_instrucoes'] = False
-                assets['efeitos_sonoros'].play(assets['selecionar'])
-
         # Desenha a imagem de 'Voltar' na janela na posição definida
         window.blit(voltar, posicao_voltar)
 
@@ -333,6 +334,7 @@ def desenha(window: pygame.Surface, assets, state):
             if pygame.mouse.get_pressed()[0]:
                 # Inicia o jogo
                 assets['efeitos_sonoros'].play(assets['selecionar'])
+                time.sleep(0.3)
                 window,assets, state = inicializa()
                 reset_game(window, assets, state)
                 finaliza()
@@ -346,6 +348,7 @@ def desenha(window: pygame.Surface, assets, state):
             COR_3 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
                 assets['efeitos_sonoros'].play(assets['selecionar'])
+                time.sleep(0.3)
                 # Abre a tela de instruções
                 state['tela_jogo'] = False
                 state['fim_de_jogo'] = False

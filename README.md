@@ -21,11 +21,25 @@ Então, prepare-se para uma jornada pelo espaço sideral e mostre suas habilidad
 
 <h2> Funcionamento</h2>
 O jogo StarFlow funciona rodando o código python. Para jogar, é necessário baixar os arquivos neste repositório, ter o python instalado em sua máquina. É necessário também instalar a biblioteca pygame. Segue como fazer os procedimentos descrito acima:
-<i>Passo 1</i>
-Entre no repositório do <a href:"https://github.com/eriksoaress/StarFlow/">StarFlow</a>
-<i>Passo 2</i> 
+<h3>Passo 1</h3>
+<p>Entre no repositório do <a href:"https://github.com/eriksoaress/StarFlow/">StarFlow</a></p>
+<h3>Passo 2</h3> 
 Clique em Code
 <img src="https://github.com/eriksoaress/StarFlow/blob/fernandovs4-patch-1/WhatsApp%20Image%202023-02-22%20at%2021.56.23.jpeg" alt="Nome da imagem" width="500">
+<h3>Passo 3</h3>
+<p>Baixe o arquivo zipado</p>
+
+<img src="[https://github.com/eriksoaress/StarFlow/blob/fernandovs4-patch-1/WhatsApp%20Image%202023-02-22%20at%2021.56.23.jpeg](https://github.com/eriksoaress/StarFlow/blob/fernandovs4-patch-1/WhatsApp%20Image%202023-02-22%20at%2021.59.14.jpeg)" alt="Nome da imagem" width="500">
+
+<h3> Passo 4</h3>
+Após baixar, descompcte em um local de sua preferência. 
+<h3> Instalando o pygame </h3>
+<p> Sabendo que você já tem o python instalado em sua máquina, abra um terminal e rode o seguinte comando: </p>
+<p> pip install pygame</p>
+Após isso, se não tiver dado nenhum erro(Se deu, dá uma googada, ou vai no ChatGpt hehe e pesquise sobre o erro)
+Após instalar o pygame, entre pelo temrinal na paasta que você extraiu o jogo e rode o seguinte comando:
+<p>python(ou python3, dependendo de seu python instalado) main.py</p>
+<p> O jogo irá executar e você já vai poder saboreá-lo </p>
 
 
 Integrantes:

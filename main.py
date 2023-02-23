@@ -87,6 +87,8 @@ def inicializa():
     all_help_screen.add(help_screen)
 
     selecionar = pygame.mixer.Sound(path / "som/selecionar.mp3")
+    bomb = (pygame.mixer.Sound(path / "som/bomb.ogg"))
+    bomb.set_volume(0.1)
    
 
     
@@ -94,7 +96,7 @@ def inicializa():
 
     assets = {"fundo":pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg'), (1280,720))
     , "fundo_instrucoes": pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_instrucoes.png'), (1280,720)),
-    'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)),"selecionar": selecionar }
+    'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)),"selecionar": selecionar, "bomb": bomb }
     contador = 0
 
     
@@ -223,6 +225,7 @@ def desenha(window: pygame.Surface, assets, state):
                 # Define as variáveis de estado para retornar à tela inicial
                 state['tela_inicial'] = True
                 state['tela_instrucoes'] = False
+                assets['selecionar'].play()
 
         # Desenha a imagem de 'Voltar' na janela na posição definida
         window.blit(voltar, posicao_voltar)
@@ -415,6 +418,7 @@ def atualiza_estado(state):
               
     # Verifica se houve colisão entre a estrela e os alvos
     if pygame.sprite.spritecollide(state['estrela'], state['alvos'], False):
+        assets['bomb'].play()
         state['acertou_3_seguidas'] += 1
         # Adiciona um ponto
         state['pontos'] += 1

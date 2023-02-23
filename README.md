@@ -36,8 +36,8 @@ Após baixar, descompcte em um local de sua preferência.
 <h3> Instalando o pygame </h3>
 <p> Sabendo que você já tem o python instalado em sua máquina, abra um terminal e rode o seguinte comando: </p>
 <p> pip install pygame</p>
-Após isso, se não tiver dado nenhum erro(Se deu, dá uma googada, ou vai no ChatGpt hehe e pesquise sobre o erro)
-Após instalar o pygame, entre pelo temrinal na paasta que você extraiu o jogo e rode o seguinte comando:
+Após isso, se não tiver dado nenhum erro(Se deu, dá uma googlada, ou vai no ChatGpt hehe e pesquise sobre o erro)
+Após instalar o pygame, entre pelo temrinal na pasta que você extraiu o jogo e rode o seguinte comando:
 <p>python(ou python3, dependendo de seu python instalado) main.py</p>
 <p> O jogo irá executar e você já vai poder saboreá-lo </p>
 

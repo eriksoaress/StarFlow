@@ -90,6 +90,7 @@ def inicializa():
     selecionar = pygame.mixer.Sound(path / "som/selecionar.mp3")
     bomb = pygame.mixer.Sound(path / "som/bomb.ogg")
     trilha = pygame.mixer.Sound(path / "som/trilha.ogg")
+    trilha.set_volume(0.5)
     bomb.set_volume(0.1)
 
    

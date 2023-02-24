@@ -58,7 +58,7 @@ Após instalar o pygame, entre pelo terminal na pasta que você extraiu o jogo e
 <p>A gravidade de um planeta é um fenômeno físico que ocorre devido à atração gravitacional exercida pelo planeta sobre os objetos próximos a ele. A intensidade da força gravitacional depende da massa do planeta e da distância entre o planeta e o objeto. A lei da gravitação universal de Isaac Newton descreve essa relação matematicamente por meio das seguintes equações:
 
 $$
- F = G * (m1 * m2) /\ r^2
+ F = G * (m1 * m2) / r^2
 $$
 
 onde F é a força gravitacional entre dois objetos, G é a constante gravitacional, m1 e m2 são as massas dos objetos e r é a distância entre os objetos.
@@ -66,11 +66,16 @@ No caso do nosso jogo, fizemos algumas simplificações para conseguir represent
 
 [imagem]
 O valor de G foi obtido através de testes, de forma a deixar essa constante o mais próximo da percepção do modelo físico real de forças gravitacionais provocadas por planetas.
-Foi utilizado, para o  cálculo, 
+Foi utilizado, para os cálculos, vetores, que vão da estrela até os planetas. A obtenção desses vetores foi obtida através da subtração de vetores(o vetor posição da estrela menos o vetor posição dos planetas).
+A imagem abaixo mostra como foi feita essa operação em PyGame,
+ [imagem]
+
+<h3>Nuvem de poeira</h3>
+<p> Modelamos a nuvem de poeira simulando um atrito. N
 
 No caso de um planeta, podemos considerar que sua massa é muito maior do que a massa de qualquer objeto que esteja próximo a ele, como um objeto em sua superfície. Nesse caso, podemos simplificar a equação da seguinte forma:
-
-F = (G * M * m) / r^2
+ 
+$$ F = (G * M * m) / r^2$$
 
 onde F é a força gravitacional, G é a constante gravitacional, M é a massa do planeta, m é a massa do objeto e r é a distância entre o objeto e o centro do planeta.
 

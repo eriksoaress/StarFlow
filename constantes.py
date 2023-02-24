@@ -11,3 +11,7 @@ WHITE = (255,255,255)
 color = [GREEN, RED, PURPLE]
 posicao_inicial_estrela = np.array([300,360])
 path = Path().cwd()
+MAX_X_estrela = posicao_inicial_estrela[0] + 300  # posição x máxima
+MIN_X_estrela = posicao_inicial_estrela[0] - 300  # posição x mínima
+MAX_Y_estrela = posicao_inicial_estrela[1] + 300  # posição y máxima
+MIN_Y_estrela = posicao_inicial_estrela[1] - 300  # posição y mínima

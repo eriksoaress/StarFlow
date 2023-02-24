@@ -377,10 +377,6 @@ def desenha(window: pygame.Surface, assets, state):
         posicao_texto.topright = (1270, 0)
         window.blit(pontos_texto, posicao_texto)
 
-        # Desenha uma linha caso o jogador esteja arrastando uma estrela
-        if state['arrastando'] == True:
-            pygame.draw.line(window, (255, 255, 255), posicao_inicial_estrela, pygame.mouse.get_pos(), 1)
-
 
         # Desenha todos os sprites na tela
         state['estrelas'].draw(window)
@@ -398,8 +394,8 @@ def desenha(window: pygame.Surface, assets, state):
             #A cor da linha é determinada pelo valor mínimo entre a distância e 255
             color_line = min(((pygame.mouse.get_pos()[0]  - posicao_inicial_estrela[0])**2  + (pygame.mouse.get_pos()[1]  - posicao_inicial_estrela[1] )**2)**0.5, 255)
 
-            pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela, pygame.mouse.get_pos(), 2)
-            pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela + np.array([0,-15]), pygame.mouse.get_pos() + np.array([0,-2]), 2)
+            pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela, (state['estrela'].rect.centerx, state['estrela'].rect.centery), 2)
+            pygame.draw.line(window, (0 + color_line, 255 - color_line , 0), posicao_inicial_estrela + np.array([0,-15]), (state['estrela'].rect.centerx, state['estrela'].rect.centery) + np.array([0,-2]), 2)
         
     #Gera novos planetas se a pontuação dividida pela fase atual for maior do que 5 e o número de planetas for menor do que 3
     if state['pontos']/state['fase'] > 5 and len(state['planeta']) < 3 :
@@ -540,7 +536,17 @@ def atualiza_estado(state):
                 state['arrastando'] = False
         # Se o usuário está arrastando a estrela, atualiza a posição dela para a posição atual do mouse
         elif state['arrastando'] == True:
-            state['estrela'].rect.center = pygame.mouse.get_pos()
+            new_x, new_y = pygame.mouse.get_pos()
+            if new_x < MIN_X_estrela:
+                new_x = MIN_X_estrela
+            elif new_x > MAX_X_estrela:
+                new_x = MAX_X_estrela
+            elif new_y < MIN_Y_estrela:
+                new_y = MIN_Y_estrela
+            elif new_y > MAX_Y_estrela:
+                new_y = MAX_Y_estrela
+            else:
+                state['estrela'].rect.center = pygame.mouse.get_pos()
     
                    
     if state['contador']%5 == 0 :    

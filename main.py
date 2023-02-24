@@ -11,7 +11,7 @@ import time
 FPS = 60  # Frames per Second
 clock = pygame.time.Clock()
 
-
+ 
 def reset_game(window,assets, state):
     gameloop(window, assets, state)
 
@@ -26,39 +26,34 @@ def gera_asteroide(raio, posicao):
     asteroide = Asteroide(raio, posicao,angle, max(0.3,increment) )
     return asteroide
 def inicializa():
+    '''Função que inicializa todos os assets e states do jogo'''
     # Inicializa o Pygame
-  
     pygame.init()
 
     vida = Vida(5)
     vidas = pygame.sprite.Group()
     vidas.add(vida)
 
+    '''Criando os objetos e adicionando no grupo'''
     game_over = Game_over()
     game_overs = pygame.sprite.Group()
     game_overs.add(game_over)
-    '''Função que inicializa todos os assets e states do jogo'''
     window = pygame.display.set_mode((WIDTH, HEIGHT), flags=pygame.SCALED)
-    #Criando o objeto estrela e adicionando no grupo de sprite estrelas
     estrela = Estrela()
     estrelas = pygame.sprite.Group()
     estrelas.add(estrela)
-    #Criando o objeto alvo e adicionando no grupo de sprite grupo_alvo
     alvo = Alvo()
     alvos = pygame.sprite.Group()
     alvos.add(alvo)
-    #Criando o objeto  planeta e adicionando no grupo de sprite planeta_grupo
-
     planeta = Planeta(raio_planeta, posicao_planeta)
+    # Define os angulos para a exibição dos asteroides
     angle = random.random()
     increment = random.random()
     asteroide = Asteroide(5,posicao_planeta, angle, max(0.3, 0.7*increment))
     asteroides = pygame.sprite.Group()
     asteroides.add(asteroide)
-
     planetas= pygame.sprite.Group()
     planetas.add(planeta)
-    #Criando o objeto poeira e adicionando no grupo de sprite poeiras
     poeira = Poeira(raio_poeira, raio_poeira, posicao_poeira)
     poeiras = pygame.sprite.Group()
     poeiras.add(poeira)
@@ -66,15 +61,12 @@ def inicializa():
     #Define a fonte de texto com tamanho 40
     font3 = pygame.font.Font(None,40)
     
-    # Renderiza o texto "Game Over" na cor vermelha (RED) utilizando a fonte definida anteriormente
-    text = font3.render('Game Over', True, RED)
+
     #Define as posições e dimensões dos retângulos para os botões da tela de game over
     screen_help_rect = pygame.Rect(361, 7, 63, 31)
     principal_menu_rect = pygame.Rect(74, 396, 252, 59)
     play_again_rect = pygame.Rect(74, 321, 252, 59)
     exit_rect = pygame.Rect(74, 471, 252, 59)
-    #Define a posição central do retângulo que contém o texto "Game Over"
-    text_rect = text.get_rect(center = (20,20))
 
 
     # Cria uma instância da classe Tela_inicial e adiciona a tela em um grupo de telas iniciais
@@ -97,7 +89,7 @@ def inicializa():
 
     
 
-
+    '''Carrega a maioria dos arquivos que serão utilizados'''
     assets = {"fundo":pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_estrelas.jpeg'), (1280,720))
     , "fundo_instrucoes": pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_instrucoes.png'), (1280,720)),
     'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)),"selecionar": selecionar, "bomb": bomb,
@@ -107,7 +99,7 @@ def inicializa():
     contador = 0
 
     
-
+    '''Armazena a maioria dos objetos e variaveis que serão utilizados'''
     state = {
         "estrela": estrela,"estrelas": estrelas, "alvos":alvos, "alvo":alvo,
         "planetas":planetas,"planeta":[planeta], "em_andamento": False, 
@@ -131,7 +123,9 @@ def finaliza():
     sys.exit()
 
 angle = 0
+
 def desenha(window: pygame.Surface, assets, state):
+    # Verifica se a trilha sonora está ativa, se não estiver ela é ativada
     if not assets['trilha_sonora'].get_busy():
         assets['trilha_sonora'].play(assets['trilha'], loops=-1)
 
@@ -220,10 +214,10 @@ def desenha(window: pygame.Surface, assets, state):
             COR_3 = (255, 255, 255)
 
     if state['tela_personagens']:
-        # Define a fonte e tamanho da fonte para o texto 'Voltar'
+        # Define a fonte e tamanho da fonte para os textos
         fonte = pygame.font.SysFont('Arial', 24)
 
-        # Renderiza o texto 'Voltar' com a fonte definida
+        # Renderiza o texto das estrelas com a fonte definida
         estrela_azul = fonte.render('Estrela Azul', True, (0,0,0))
         estrela_ventos = fonte.render('Estrela Ventos', True, (0,0,0))
         estrela_mario = fonte.render('Estrela Mario', True, (0,0,0))
@@ -232,7 +226,7 @@ def desenha(window: pygame.Surface, assets, state):
         estrela_padrao = fonte.render('Estrela Padrao', True, (0,0,0))
         menu = fonte.render("Menu", True, (255,255,255))
 
-        # Obtém as dimensões da imagem de 'Voltar' renderizada
+        # Obtém as dimensões da imagem dos textos das estrelas renderizadas
         posicao_azul = estrela_azul.get_rect()
         posicao_ventos = estrela_ventos.get_rect()
         posicao_mario = estrela_mario.get_rect()
@@ -241,7 +235,7 @@ def desenha(window: pygame.Surface, assets, state):
         posicao_padrao = estrela_padrao.get_rect()
         posicao_menu = menu.get_rect()
 
-        # Define a posição da imagem de 'Voltar' no canto superior direito da tela
+        # Define a posição dos textos das estrelas
         posicao_azul.center = (181,150)
         posicao_ventos.center = (181,350)
         posicao_mario.center = (181,550)
@@ -249,81 +243,74 @@ def desenha(window: pygame.Surface, assets, state):
         posicao_vermelha.center = (546,350)
         posicao_padrao.center = (546,550)
         posicao_menu.center = (1200,670)
-        # Desenha a imagem de fundo da tela de instruções na janela
+
+        # Desenha a imagem de fundo da tela para a troca de skin
         window.blit(assets['fundo_personagens'], (0,0))
+        # Carrega a imagem da skin
         imagem_estrela = pygame.image.load(path / f"imagens/estrela_{state['skin']}.png")
         imagem_estrela = pygame.transform.scale(imagem_estrela, (200,200))
         # Obtém retângulo da imagem
         rect_imagem_estrela = imagem_estrela.get_rect()
-        # Define a posição central da imagem
+        # Define a posição central da imagem e desenha na tela
         rect_imagem_estrela.center = (1008, 300)
         window.blit(imagem_estrela, rect_imagem_estrela)
 
-        # Verifica se o mouse está sobre a imagem de 'Voltar'
+        # 1 - Verifica se o mouse está sobre o nome da skin
+        # 2 - Verifica se o botão esquerdo do mouse está pressionado
+        # 3 - Troca a skin
         if posicao_azul.collidepoint(pygame.mouse.get_pos()):
             estrela_azul = fonte.render('Estrela Azul', True, (255,0,0))
-            # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
-                # Define as variáveis de estado para retornar à tela inicial
                 assets['efeitos_sonoros'].play(assets['selecionar'])
                 time.sleep(0.3)
                 state['skin'] = 'azul'
                 state['estrela'].update(state['velocidade'], False, state['skin'])
         if posicao_ventos.collidepoint(pygame.mouse.get_pos()):
             estrela_ventos = fonte.render('Estrela Ventos', True, (255,0,0))
-            # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
-                # Define as variáveis de estado para retornar à tela inicial
                 assets['efeitos_sonoros'].play(assets['selecionar'])
                 time.sleep(0.3)
                 state['skin'] = 'ventos'
                 state['estrela'].update(state['velocidade'], False, state['skin'])
         if posicao_mario.collidepoint(pygame.mouse.get_pos()):
             estrela_mario = fonte.render('Estrela Mario', True, (255,0,0))
-            # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
-                # Define as variáveis de estado para retornar à tela inicial
                 assets['efeitos_sonoros'].play(assets['selecionar'])
                 time.sleep(0.3)
                 state['skin'] = 'mario'
                 state['estrela'].update(state['velocidade'], False, state['skin'])
         if posicao_rosa.collidepoint(pygame.mouse.get_pos()):
             estrela_rosa = fonte.render('Estrela Rosa', True, (255,0,0))
-            # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
-                # Define as variáveis de estado para retornar à tela inicial
                 assets['efeitos_sonoros'].play(assets['selecionar'])
                 time.sleep(0.3)
                 state['skin'] = 'rosa'
                 state['estrela'].update(state['velocidade'], False, state['skin'])
         if posicao_vermelha.collidepoint(pygame.mouse.get_pos()):
             estrela_vermelha = fonte.render('Estrela Vermelha', True, (255,0,0))
-            # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
-                # Define as variáveis de estado para retornar à tela inicial
                 assets['efeitos_sonoros'].play(assets['selecionar'])
                 time.sleep(0.3)
                 state['skin'] = 'vermelha'
                 state['estrela'].update(state['velocidade'], False, state['skin'])
         if posicao_padrao.collidepoint(pygame.mouse.get_pos()):
             estrela_padrao = fonte.render('Estrela Padrao', True, (255,0,0))
-            # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
-                # Define as variáveis de estado para retornar à tela inicial
                 assets['efeitos_sonoros'].play(assets['selecionar'])
                 time.sleep(0.3)
                 state['skin'] = 'padrao'
                 state['estrela'].update(state['velocidade'], False, state['skin'])
+        # 1 - Verifica se o mouse está sobre o nome da skin
+        # 2 - Verifica se o botão esquerdo do mouse está pressionado
+        # 3 - Troca para a tela inicial                
         if posicao_menu.collidepoint(pygame.mouse.get_pos()):
             menu = fonte.render('Menu', True, (255,0,0))
-            # Verifica se o botão esquerdo do mouse está pressionado
             if pygame.mouse.get_pressed()[0]:
-                # Define as variáveis de estado para retornar à tela inicial
                 assets['efeitos_sonoros'].play(assets['selecionar'])
                 time.sleep(0.3)
                 state['tela_personagens'] = False
                 state['tela_inicial'] = True
-        # Desenha a imagem de 'Voltar' na janela na posição definida
+        # Desenha o nome das skins
         window.blit(estrela_azul, posicao_azul)
         window.blit(estrela_ventos, posicao_ventos)
         window.blit(estrela_mario, posicao_mario)

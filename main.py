@@ -102,7 +102,8 @@ def inicializa():
     , "fundo_instrucoes": pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_instrucoes.png'), (1280,720)),
     'fundo_inicio': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_inicio.png'), (1280,720)),"selecionar": selecionar, "bomb": bomb,
     "trilha": trilha, "trilha_sonora": pygame.mixer.Channel(0), "efeitos_sonoros":pygame.mixer.Channel(1),
-    'fundo_personagens': pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_personagens.png'), (1280, 720))}
+    'fundo_personagens': pygame.transform.scale(pygame.image.load(path / 'imagens/fundo_personagens.png'), (1280, 720)),
+    'fundo_final': pygame.transform.scale(pygame.image.load(path / 'imagens/wallpaper_final.png'), (1280,720))}
     contador = 0
 
     
@@ -186,6 +187,8 @@ def desenha(window: pygame.Surface, assets, state):
             
         if botao_personagens.collidepoint(pygame.mouse.get_pos()):
             if pygame.mouse.get_pressed()[0]:
+                assets['efeitos_sonoros'].play(assets['selecionar'])
+                time.sleep(0.3)
                 state['tela_inicial'] = False
                 state['tela_personagens'] = True
 
@@ -415,7 +418,7 @@ def desenha(window: pygame.Surface, assets, state):
     if state['fim_de_jogo']:
         
         # Desenha a tela inicial do jogo
-        window.blit(assets['fundo_inicio'], (0,0))
+        window.blit(assets['fundo_final'], (0,0))
         
         # Define as fontes utilizadas na tela inicial
         fonte_game_over = pygame.font.SysFont('Arial', 90)

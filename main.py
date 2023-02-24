@@ -22,7 +22,6 @@ def gera_asteroide(raio, posicao):
     '''Função que gera o asteroide'''
     angle = random.random()
     increment = random.random()
-    print(angle)
     asteroide = Asteroide(raio, posicao,angle, max(0.3,increment) )
     return asteroide
 def inicializa():

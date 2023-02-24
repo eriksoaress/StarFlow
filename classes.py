@@ -12,7 +12,7 @@ class Estrela(pygame.sprite.Sprite):
         def __init__(self):
             pygame.sprite.Sprite.__init__(self)
             # Carrega a imagem da estrela e redimensiona para o tamanho desejado
-            self.image = pygame.image.load(path / "imagens/estrela.png")
+            self.image = pygame.image.load(path / "imagens/estrela_padrao.png")
             self.image = pygame.transform.scale(self.image, (30,30))
             
             self.rect = self.image.get_rect()
@@ -22,8 +22,15 @@ class Estrela(pygame.sprite.Sprite):
             self.rect.centery = posicao_inicial_estrela[1]
 
 
-        def update(self, velocidade ,atingiu):
+        def update(self, velocidade ,atingiu, estrela=''):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
+            if not estrela == '' :
+                self.image = pygame.image.load(path / f"imagens/estrela_{estrela}.png")
+                self.image = pygame.transform.scale(self.image, (30,30))
+                # Definindo a posição
+                self.rect = self.image.get_rect()
+                self.rect.centerx = posicao_inicial_estrela[0]
+                self.rect.centery = posicao_inicial_estrela[1]
 
             # Se a estrela colidir com o alvo, ela volta para a posição inicial
             if atingiu:

@@ -1,4 +1,5 @@
 
+import sys
 import pygame
 from classes import*
 from variaveis import *
@@ -122,9 +123,12 @@ def inicializa():
     return window, assets, state
 
 
+
 def finaliza():
     '''Função utilizada para fechar o pygame'''
-    pygame.quit()
+    if pygame.get_init():
+        pygame.quit()
+    sys.exit()
 
 angle = 0
 def desenha(window: pygame.Surface, assets, state):

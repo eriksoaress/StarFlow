@@ -91,8 +91,8 @@ class Planeta(pygame.sprite.Sprite):
             gravidade = 0.2*DT * direcao_gravidade
 
             # Aplica a força gravitacional na velocidade da estrela
-            if pygame.sprite.spritecollide(state['estrela'], state['poeiras'], False) :
-                state['velocidade'] = state['velocidade']*0.99 +  gravidade
+            if pygame.sprite.spritecollide(state['estrela'], state['poeiras'], False) : # Verifica se a estrela colidiu com a poeira para aplicar o atrito
+                state['velocidade'] = state['velocidade']*0.98 +  gravidade
             else:
                 state['velocidade'] = state['velocidade'] +  gravidade
 

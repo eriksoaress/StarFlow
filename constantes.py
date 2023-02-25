@@ -15,3 +15,4 @@ MAX_X_estrela = posicao_inicial_estrela[0] + 300  # posição x máxima
 MIN_X_estrela = posicao_inicial_estrela[0] - 300  # posição x mínima
 MAX_Y_estrela = posicao_inicial_estrela[1] + 300  # posição y máxima
 MIN_Y_estrela = posicao_inicial_estrela[1] - 300  # posição y mínima
+G = 20000

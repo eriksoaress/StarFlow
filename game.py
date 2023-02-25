@@ -116,7 +116,7 @@ def inicializa():
         'font3':font3,'all_help_screen': all_help_screen, "fase": 1, "inicio_fase": True,
         'font3':font3,'all_help_screen': all_help_screen, "record":  str(open(path / 'record.txt', 'r').read()), "poeiras": poeiras,'poeira':poeira,'asteroide': [asteroide],
          'asteroides': asteroides, 'contador': contador, 'vidas': vidas, 'vida': vida, 'num_vidas': 5, "fim_de_jogo":False, 'game_overs':game_overs, 'game_over':game_over,
-         'acertou_3_seguidas':0, "skin": 'estrela_padrao'
+         'acertou_3_seguidas':0, "skin": 'padrao'
      
     }
     return window, assets, state
@@ -254,7 +254,7 @@ def desenha(window: pygame.Surface, assets, state):
         # Desenha a imagem de fundo da tela para a troca de skin
         window.blit(assets['fundo_personagens'], (0,0))
         # Carrega a imagem da skin
-        imagem_estrela = pygame.image.load(path / f"imagens/{state['skin']}.png")
+        imagem_estrela = pygame.image.load(path / f"imagens/estrela_{state['skin']}.png")
         imagem_estrela = pygame.transform.scale(imagem_estrela, (200,200))
         # Obtém retângulo da imagem
         rect_imagem_estrela = imagem_estrela.get_rect()
@@ -271,7 +271,7 @@ def desenha(window: pygame.Surface, assets, state):
         posicoes = [posicao_azul, posicao_ventos, posicao_mario, posicao_rosa, posicao_vermelha, posicao_padrao]
         for i in range(len(estrelas)):
             if posicoes[i].collidepoint(pygame.mouse.get_pos()):
-                estrelas[i] = fonte.render(str(estrelas_nomes[i]), True, (255,0,0))
+                estrelas[i] = fonte.render(str(estrelas[i]), True, (255,0,0))
                 if pygame.mouse.get_pressed()[0]:
                     troca_skin(estrelas_nomes[i], assets, state)
                 
@@ -594,9 +594,4 @@ def atualiza_estado(state):
 
 def gameloop(window, assets, state):
     while atualiza_estado(state):
-        desenha(window, assets, state) 
-
-if __name__ == '__main__':
-    window,assets, state = inicializa()
-    gameloop(window,assets, state)
-    finaliza()
+        desenha(window, assets, state)

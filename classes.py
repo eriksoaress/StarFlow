@@ -25,7 +25,7 @@ class Estrela(pygame.sprite.Sprite):
         def update(self, velocidade ,atingiu, estrela=''):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
             if not estrela == '' :
-                self.image = pygame.image.load(path / f"imagens/estrela_{estrela}.png")
+                self.image = pygame.image.load(path / f"imagens/{estrela}.png")
                 self.image = pygame.transform.scale(self.image, (30,30))
                 # Definindo a posição
                 self.rect = self.image.get_rect()

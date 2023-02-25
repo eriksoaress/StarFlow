@@ -25,7 +25,7 @@ class Estrela(pygame.sprite.Sprite):
         def update(self, velocidade ,atingiu, estrela=''):
             '''Método para atualizar a posição dos pássaros e trocar as imagens dos pássaros para dar animação'''
             if not estrela == '' :
-                self.image = pygame.image.load(path / f"imagens/estrela_{estrela}.png")
+                self.image = pygame.image.load(path / f"imagens/{estrela}.png")
                 self.image = pygame.transform.scale(self.image, (30,30))
                 # Definindo a posição
                 self.rect = self.image.get_rect()
@@ -87,8 +87,8 @@ class Planeta(pygame.sprite.Sprite):
             direcao_gravidade = vetor_planeta_estrela / np.linalg.norm(vetor_planeta_estrela)
             
             # Calcula a força gravitacional do planeta sobre a estrela
-            DT = 100000/np.linalg.norm(vetor_planeta_estrela)**2
-            gravidade = 0.2*DT * direcao_gravidade
+            DT = G/np.linalg.norm(vetor_planeta_estrela)**2
+            gravidade = DT * direcao_gravidade
 
             # Aplica a força gravitacional na velocidade da estrela
             if pygame.sprite.spritecollide(state['estrela'], state['poeiras'], False) : # Verifica se a estrela colidiu com a poeira para aplicar o atrito

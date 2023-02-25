@@ -11,9 +11,9 @@ Sua fama como a melhor atleta espacial da galáxia se espalhou rapidamente, e ag
 
 Venha se juntar a Star e ajudá-la a mostrar suas habilidades em StarFlow, o jogo intergaláctico de precisão e estratégia!
 <h2> Pra fim de conversa... </h2>
-Bem-vindo ao incrível jogo "StarFlow"! Você está preparado para uma jornada intergaláctica em que terá que lançar uma estrela em um alvo, enfrentando planetas que tentarão atrapalhar seu caminho com sua gravidade?
+Bem-vindo ao incrível jogo "StarFlow"! Você está preparado para uma jornada intergaláctica em que terá que lançar uma estrela em um alvo, enfrentando planetas que tentarão atrapalhar seu caminho com sua gravidade e nuvens de poeira cósmica?
 
-Desafie-se e teste suas habilidades enquanto tenta acertar o alvo e coletar o máximo de pontos possível. Mas cuidado com os planetas - eles podem ser um obstáculo perigoso no seu caminho! Use sua estratégia e precisão para desviar das forças gravitacionais e manter sua estrela no rumo certo.
+Desafie-se e teste suas habilidades enquanto tenta acertar o alvo e coletar o máximo de pontos possível. Mas cuidado com os planetas e as poeiras - eles podem ser um obstáculo perigoso no seu caminho! Use sua estratégia e precisão para desviar das forças gravitacionais e manter sua estrela no rumo certo.
 
 Com gráficos incríveis e trilha sonora cativante, você irá se sentir imerso em uma aventura no espaço. E com múltiplas fases e níveis de dificuldade, você nunca vai ficar entediado!
 
@@ -35,7 +35,7 @@ Clique em Code
 Após baixar, descompacte em um local de sua preferência. 
 <h3> Instalando as bibliotecas </h3>
 <p> Sabendo que você já tem o python instalado em sua máquina, abra um terminal e rode o seguinte comando: </p>
-<p> pip install -r requirements.txt </p>
+<p> $$ pip install -r requirements.txt $$ </p>
 Após isso, se não tiver dado nenhum erro(Se deu, dá uma googlada, ou vai no ChatGpt hehe e pesquise sobre o erro)
 Após instalar as biliotecas externas, entre pelo terminal na pasta que você extraiu o jogo e rode o seguinte comando:
 <p>python(ou python3, dependendo de seu python instalado) main.py</p>

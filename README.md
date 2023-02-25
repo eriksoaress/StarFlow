@@ -71,21 +71,11 @@ A imagem abaixo mostra como foi feita essa operação em PyGame,
  [imagem]
 
 <h3>Nuvem de poeira</h3>
-<p> Modelamos a nuvem de poeira simulando um atrito. N
+<p> Modelamos a nuvem de poeira simulando um atrito. Quando a estrela passa pela nuvem, a velocidade da estela sofre uma alteração no seu módul. Assim, a gente construiu um sistema que simula uma desaceleração. Essa parte do código pode ser vista abaixo:
+ [imagem]
 
-No caso de um planeta, podemos considerar que sua massa é muito maior do que a massa de qualquer objeto que esteja próximo a ele, como um objeto em sua superfície. Nesse caso, podemos simplificar a equação da seguinte forma:
- 
-$$ F = (G * M * m) / r^2$$
 
-onde F é a força gravitacional, G é a constante gravitacional, M é a massa do planeta, m é a massa do objeto e r é a distância entre o objeto e o centro do planeta.
 
-Podemos ainda descrever a aceleração gravitacional em um ponto próximo à superfície do planeta por meio da seguinte equação:
-
-g = (G * M) / r^2
-
-onde g é a aceleração gravitacional no ponto, G é a constante gravitacional, M é a massa do planeta e r é o raio do planeta. Essa equação nos mostra que a aceleração gravitacional é diretamente proporcional à massa do planeta e inversamente proporcional ao quadrado da distância do objeto ao centro do planeta.
-
-Essas equações nos permitem calcular a força gravitacional e a aceleração gravitacional em qualquer ponto próximo a um planeta, desde que conheçamos a massa do planeta e a distância do objeto ao seu centro. Elas são importantes para entender vários fenômenos astronômicos e para projetar sistemas de navegação espacial.
 
  
 <h3>Autores:</h3>

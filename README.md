@@ -54,7 +54,7 @@ Após instalar as biliotecas externas, entre pelo terminal na pasta que você ex
  <p> O alvo consiste em um objeto, uma nave. Toda vez que a estrela atinge o alvo, você ganha um ponto. Se erra, perde um ponto. Se acerta 3 vezes em seguida, ganha uma vida(se tiver vidas faltando). O jogo consiste em conseguir a maior pontuação. Se você perder todas as suas vidas, o jogo acaba. Desafie seus amigos e veja quem consegue a melhor pontuação!
 
 <h2> Apresentação do jogo<h/2>
-<p><img align="center" src="https://github.com/eriksoaress/StarFlow/blob/main/imagens/StarFlow_gif.gif" alt="Nome da imagem" width:100 ></p>
+<p><img align="center" src="https://github.com/eriksoaress/StarFlow/blob/main/imagens/StarFlow_gif.gif" alt="Nome da imagem" width:500 ></p>
 
 
 <h1> Modelo físico do jogo </h1>

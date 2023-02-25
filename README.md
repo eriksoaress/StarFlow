@@ -61,8 +61,8 @@ $$
  F = G * (m1 * m2) / r^2
 $$
 
-onde $$F$$ é a força gravitacional entre dois objetos, $$G$$ é a constante gravitacional, $$ m1 $$ e $$m2$$ são as massas dos objetos e $$r$$ é a distância entre os objetos.
-No caso do nosso jogo, fizemos algumas simplificações para conseguir representar o modelo mais próximo da realidade. Para isso, usamos uma constante $$G$$ que representa $$ G*(m1*m3)$$, na imagem abaixo, está representando essa constante. 
+onde F é a força gravitacional entre dois objetos, G é a constante gravitacional, m1 e m2 são as massas dos objetos e r é a distância entre os objetos.
+No caso do nosso jogo, fizemos algumas simplificações para conseguir representar o modelo mais próximo da realidade. Para isso, usamos uma constante G que representa G*(m1*m3), na imagem abaixo, está representando essa constante. 
 
 <img src = "https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" alt = "" width:300>
 O valor de$$G$$ foi obtido através de testes, de forma a deixar essa constante o mais próximo da percepção do modelo físico real de forças gravitacionais provocadas por planetas.

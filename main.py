@@ -350,6 +350,13 @@ def desenha(window: pygame.Surface, assets, state):
         window.fill((0,0,0))
         window.blit(assets['fundo'], (0,0))
 
+        # Exibe na tela o nível em que o jogador está
+        fonte_nivel = pygame.font.SysFont('Arial', 16)
+        nivel_texto = fonte_nivel.render('Nível: {}'.format(state['fase']), True, (255, 255, 255))
+        posicao_texto = nivel_texto.get_rect()
+        posicao_texto.center = (640, 10)
+        window.blit(nivel_texto, posicao_texto)
+
         # Desenha o score do jogador
         fonte_pontos = pygame.font.SysFont('Arial', 16)
         pontos_texto = fonte_pontos.render('Score: {}'.format(state['pontos']), True, (255, 255, 255))

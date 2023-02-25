@@ -25,6 +25,13 @@ def gera_asteroide(raio, posicao):
     increment = random.random()
     asteroide = Asteroide(raio, posicao,angle, max(0.3,increment) )
     return asteroide
+def troca_skin(skin):
+    '''Função que altera a skin se chamada'''
+    assets['efeitos_sonoros'].play(assets['selecionar'])
+    time.sleep(0.3)
+    state['skin'] = f'{skin}'
+    state['estrela'].update(state['velocidade'], False, state['skin'])
+
 def inicializa():
     '''Função que inicializa todos os assets e states do jogo'''
     # Inicializa o Pygame
@@ -258,48 +265,31 @@ def desenha(window: pygame.Surface, assets, state):
         # 1 - Verifica se o mouse está sobre o nome da skin
         # 2 - Verifica se o botão esquerdo do mouse está pressionado
         # 3 - Troca a skin
+
         if posicao_azul.collidepoint(pygame.mouse.get_pos()):
             estrela_azul = fonte.render('Estrela Azul', True, (255,0,0))
             if pygame.mouse.get_pressed()[0]:
-                assets['efeitos_sonoros'].play(assets['selecionar'])
-                time.sleep(0.3)
-                state['skin'] = 'azul'
-                state['estrela'].update(state['velocidade'], False, state['skin'])
+                troca_skin('azul')
         if posicao_ventos.collidepoint(pygame.mouse.get_pos()):
             estrela_ventos = fonte.render('Estrela Ventos', True, (255,0,0))
             if pygame.mouse.get_pressed()[0]:
-                assets['efeitos_sonoros'].play(assets['selecionar'])
-                time.sleep(0.3)
-                state['skin'] = 'ventos'
-                state['estrela'].update(state['velocidade'], False, state['skin'])
+                troca_skin('ventos')
         if posicao_mario.collidepoint(pygame.mouse.get_pos()):
             estrela_mario = fonte.render('Estrela Mario', True, (255,0,0))
             if pygame.mouse.get_pressed()[0]:
-                assets['efeitos_sonoros'].play(assets['selecionar'])
-                time.sleep(0.3)
-                state['skin'] = 'mario'
-                state['estrela'].update(state['velocidade'], False, state['skin'])
+                troca_skin('mario')
         if posicao_rosa.collidepoint(pygame.mouse.get_pos()):
             estrela_rosa = fonte.render('Estrela Rosa', True, (255,0,0))
             if pygame.mouse.get_pressed()[0]:
-                assets['efeitos_sonoros'].play(assets['selecionar'])
-                time.sleep(0.3)
-                state['skin'] = 'rosa'
-                state['estrela'].update(state['velocidade'], False, state['skin'])
+                troca_skin('rosa')
         if posicao_vermelha.collidepoint(pygame.mouse.get_pos()):
             estrela_vermelha = fonte.render('Estrela Vermelha', True, (255,0,0))
             if pygame.mouse.get_pressed()[0]:
-                assets['efeitos_sonoros'].play(assets['selecionar'])
-                time.sleep(0.3)
-                state['skin'] = 'vermelha'
-                state['estrela'].update(state['velocidade'], False, state['skin'])
+                troca_skin('vermelha')
         if posicao_padrao.collidepoint(pygame.mouse.get_pos()):
             estrela_padrao = fonte.render('Estrela Padrao', True, (255,0,0))
             if pygame.mouse.get_pressed()[0]:
-                assets['efeitos_sonoros'].play(assets['selecionar'])
-                time.sleep(0.3)
-                state['skin'] = 'padrao'
-                state['estrela'].update(state['velocidade'], False, state['skin'])
+                troca_skin('padrao')
         # 1 - Verifica se o mouse está sobre o nome da skin
         # 2 - Verifica se o botão esquerdo do mouse está pressionado
         # 3 - Troca para a tela inicial                

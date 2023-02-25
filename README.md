@@ -75,10 +75,10 @@ A imagem abaixo mostra como foi feita essa operação em PyGame,
 <p> Modelamos a nuvem de poeira simulando um atrito. Quando a estrela passa pela nuvem, a velocidade da estela sofre uma alteração no seu módul. Assim, a gente construiu um sistema que simula uma desaceleração. Essa parte do código pode ser vista abaixo:
 <img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" alt="Nome da imagem" width="500">
 
- <div align="center">
-![imagem]("https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg")
-</div>
 
+<p align="center">
+  <img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" />
+</p>
 
 
  

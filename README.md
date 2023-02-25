@@ -65,7 +65,7 @@ onde F é a força gravitacional entre dois objetos, G é a constante gravitacio
 No caso do nosso jogo, fizemos algumas simplificações para conseguir representar o modelo mais próximo da realidade. Para isso, usamos uma constante G que representa G*(m1*m3), na imagem abaixo, está representando essa constante. 
 
 <img src = "https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" alt = "" width:300>
-O valor de$$G$$ foi obtido através de testes, de forma a deixar essa constante o mais próximo da percepção do modelo físico real de forças gravitacionais provocadas por planetas.
+O valor de G foi obtido através de testes, de forma a deixar essa constante o mais próximo da percepção do modelo físico real de forças gravitacionais provocadas por planetas.
 Foi utilizado, para os cálculos, vetores, que vão da estrela até os planetas. A obtenção desses vetores foi obtida através da subtração de vetores(o vetor posição da estrela menos o vetor posição dos planetas).
 A imagem abaixo mostra como foi feita essa operação em PyGame,
 <img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.18.07.jpeg" alt="Nome da imagem" width="500">
@@ -75,6 +75,9 @@ A imagem abaixo mostra como foi feita essa operação em PyGame,
 <p> Modelamos a nuvem de poeira simulando um atrito. Quando a estrela passa pela nuvem, a velocidade da estela sofre uma alteração no seu módul. Assim, a gente construiu um sistema que simula uma desaceleração. Essa parte do código pode ser vista abaixo:
 <img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" alt="Nome da imagem" width="500">
 
+ <div align="center">
+![imagem]("https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg")
+</div>
 
 
 

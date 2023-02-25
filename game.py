@@ -1,13 +1,17 @@
 
-import sys
-import pygame
-from classes import*
-from variaveis import *
+from imports import *
+from elementos.Alvo import Alvo
+from elementos.Poeira import Poeira
+from elementos.Estrela import Estrela
+from elementos.Planeta import Planeta
+from elementos.Game_over import Game_over
+from elementos.Help import Help
+from elementos.Vida import Vida
+from elementos.Asteroide import Asteroide
+from elementos.Tela_inicial import Tela_inicial
 from constantes import*
-import numpy as np
-from pathlib import Path
-import random
-import time
+from variaveis import*
+
 FPS = 60  # Frames per Second
 clock = pygame.time.Clock()
 
@@ -183,6 +187,7 @@ def desenha(window: pygame.Surface, assets, state):
             
             COR_1 = (255, 0, 0)
             if pygame.mouse.get_pressed()[0]:
+                assets['efeitos_sonoros'].play(assets['selecionar'])
                 # Inicia o jogo
                 state['tela_inicial'] = False
                 state['tela_jogo'] = True
@@ -265,7 +270,7 @@ def desenha(window: pygame.Surface, assets, state):
         # 1 - Verifica se o mouse está sobre o nome da skin
         # 2 - Verifica se o botão esquerdo do mouse está pressionado
         # 3 - Troca a skin
-
+        
         estrelas = [estrela_azul, estrela_ventos, estrela_mario, estrela_rosa, estrela_vermelha, estrela_padrao]
         estrelas_nomes = ['estrela_azul', 'estrela_ventos', 'estrela_mario', 'estrela_rosa', 'estrela_vermelha', 'estrela_padrao']
         posicoes = [posicao_azul, posicao_ventos, posicao_mario, posicao_rosa, posicao_vermelha, posicao_padrao]
@@ -586,7 +591,6 @@ def atualiza_estado(state,assets):
         state['asteroide'][i].update(np.array([state['planeta'][i].rect.centerx, state['planeta'][i].rect.centery ]))
     
 
-   
 
     # Retorna "True" para indicar que o jogo continua em andamento
     

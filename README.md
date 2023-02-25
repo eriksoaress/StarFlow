@@ -35,7 +35,7 @@ Clique em Code
 Após baixar, descompacte em um local de sua preferência. 
 <h3> Instalando as bibliotecas </h3>
 <p> Sabendo que você já tem o python instalado em sua máquina, abra um terminal e rode o seguinte comando: </p>
-<p> $$ pip install -r requirements.txt $$ </p>
+<p> $ pip install -r requirements.txt $ </p>
 Após isso, se não tiver dado nenhum erro(Se deu, dá uma googlada, ou vai no ChatGpt hehe e pesquise sobre o erro)
 Após instalar as biliotecas externas, entre pelo terminal na pasta que você extraiu o jogo e rode o seguinte comando:
 <p>python(ou python3, dependendo de seu python instalado) main.py</p>

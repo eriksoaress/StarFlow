@@ -500,7 +500,6 @@ def atualiza_estado(state,assets):
                     unitario = velocidade/modulo_velocidade
                     if modulo_velocidade> 100:
                         velocidade = unitario*100
-                    modulo_velocidade= (velocidade[0]**2 + velocidade[1]**2)**0.5
                     # Armazena a velocidade no estado atual do jogo e atualiza a posição da estrela
                     state['velocidade'] = velocidade
                     state['estrela'].update(state['velocidade'], state['atingiu'])

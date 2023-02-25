@@ -11,9 +11,9 @@ Sua fama como a melhor atleta espacial da galáxia se espalhou rapidamente, e ag
 
 Venha se juntar a Star e ajudá-la a mostrar suas habilidades em StarFlow, o jogo intergaláctico de precisão e estratégia!
 <h2> Pra fim de conversa... </h2>
-Bem-vindo ao incrível jogo "StarFlow"! Você está preparado para uma jornada intergaláctica em que terá que lançar uma estrela em um alvo, enfrentando planetas que tentarão atrapalhar seu caminho com sua gravidade?
+Bem-vindo ao incrível jogo "StarFlow"! Você está preparado para uma jornada intergaláctica em que terá que lançar uma estrela em um alvo, enfrentando planetas que tentarão atrapalhar seu caminho com sua gravidade e nuvens de poeira cósmica?
 
-Desafie-se e teste suas habilidades enquanto tenta acertar o alvo e coletar o máximo de pontos possível. Mas cuidado com os planetas - eles podem ser um obstáculo perigoso no seu caminho! Use sua estratégia e precisão para desviar das forças gravitacionais e manter sua estrela no rumo certo.
+Desafie-se e teste suas habilidades enquanto tenta acertar o alvo e coletar o máximo de pontos possível. Mas cuidado com os planetas e as poeiras - eles podem ser um obstáculo perigoso no seu caminho! Use sua estratégia e precisão para desviar das forças gravitacionais e manter sua estrela no rumo certo.
 
 Com gráficos incríveis e trilha sonora cativante, você irá se sentir imerso em uma aventura no espaço. E com múltiplas fases e níveis de dificuldade, você nunca vai ficar entediado!
 
@@ -35,7 +35,7 @@ Clique em Code
 Após baixar, descompacte em um local de sua preferência. 
 <h3> Instalando as bibliotecas </h3>
 <p> Sabendo que você já tem o python instalado em sua máquina, abra um terminal e rode o seguinte comando: </p>
-<p> pip install -r requirements.txt </p>
+ <p> pip install -r requirements.txt  </p>
 Após isso, se não tiver dado nenhum erro(Se deu, dá uma googlada, ou vai no ChatGpt hehe e pesquise sobre o erro)
 Após instalar as biliotecas externas, entre pelo terminal na pasta que você extraiu o jogo e rode o seguinte comando:
 <p>python(ou python3, dependendo de seu python instalado) main.py</p>
@@ -52,10 +52,15 @@ Após instalar as biliotecas externas, entre pelo terminal na pasta que você ex
 </p>
  <h4>O alvo e sistema de pontuações</h4>
  <p> O alvo consiste em um objeto, uma nave. Toda vez que a estrela atinge o alvo, você ganha um ponto. Se erra, perde um ponto. Se acerta 3 vezes em seguida, ganha uma vida(se tiver vidas faltando). O jogo consiste em conseguir a maior pontuação. Se você perder todas as suas vidas, o jogo acaba. Desafie seus amigos e veja quem consegue a melhor pontuação!
- 
+
+<h2> Apresentação do jogo<h/2>
+<p ><img src="https://github.com/eriksoaress/StarFlow/blob/main/imagens/StarFlow_gif.gif" alt="Nome da imagem" width:500 ></p>
+
+
 <h1> Modelo físico do jogo </h1>
 <h3> Estrela </h3>
-<p>Criamos uma mecânica para que a estrela seja lançada de forma inspirada no famoso jogo Angry Birds, portanto é necessário puxar a estrela para definir o ângulo e velocidade que essa tomará em seu lançamento. Calculamos o vetor entre a posição atual da estrela e sua posição inicial para definir o ângulo e a velocidade, após isso calculamos o vetor unitário para caso o valor da velocidade ultrapasse 100 (limite definido), nós possamos aplicar que esse sairá com a sua velocidade correspondente ao valor máximo. </p>
+<p>Criamos uma mecânica para que a estrela seja lançada de forma inspirada no famoso jogo Angry Birds, portanto é necessário puxar a estrela para definir o ângulo e velocidade que essa tomará em seu lançamento. Calculamos o vetor entre a posição atual da estrela e sua posição inicial para definir a direção e a velocidade, pegamos o unitário desse vetor e multiplicamos pelo módulo do mesmo vetor, com o fito de poder limitar a velocidade( acima de 100px, a velocidade é setada em 100). Segue a imagem abaixo mostrando essa parte.
+</p>
 <img align="center" src="https://github.com/eriksoaress/StarFlow/blob/main/imagens/imgReadme7.jpg" alt="Nome da imagem" width:100 >
 
 <h3> Planetas </h3>
@@ -68,20 +73,21 @@ $$
 onde F é a força gravitacional entre dois objetos, G é a constante gravitacional, m1 e m2 são as massas dos objetos e r é a distância entre os objetos.
 No caso do nosso jogo, fizemos algumas simplificações para conseguir representar o modelo mais próximo da realidade. Para isso, usamos uma constante G que representa G*(m1*m3), na imagem abaixo, está representando essa constante. 
 
- <img align="center" src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.56.43.jpeg" alt="Nome da imagem" width:100 >
+ <img align="center" src="https://github.com/eriksoaress/StarFlow/blob/main/imagens/imgReadme4.jpeg" alt="Nome da imagem" width:100 >
+ 
 
 O valor de G foi obtido através de testes, de forma a deixar essa constante o mais próximo da percepção do modelo físico real de forças gravitacionais provocadas por planetas.
 Foi utilizado, para os cálculos, vetores, que vão da estrela até os planetas. A obtenção desses vetores foi obtida através da subtração de vetores(o vetor posição da estrela menos o vetor posição dos planetas).
 A imagem abaixo mostra como foi feita essa operação em PyGame,
 
-<img src = "https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.55.09.jpeg" alt = "" width:300>
+<img src = "https://github.com/eriksoaress/StarFlow/blob/main/imagens/imgReadme3.jpeg" alt = "" width:300>
 
 <h3>Nuvem de poeira</h3>
-<p> Modelamos a nuvem de poeira simulando um atrito. Quando a estrela passa pela nuvem, a velocidade da estela sofre uma alteração no seu módul. Assim, a gente construiu um sistema que simula uma desaceleração. Essa parte do código pode ser vista abaixo:
+<p> Modelamos a nuvem de poeira simulando um atrito. Quando a estrela passa pela nuvem, a velocidade da estela sofre uma alteração no seu módulo. Assim, a gente construiu um sistema que simula uma desaceleração. Essa parte do código pode ser vista abaixo:
 
 
 <p align="center">
-  <img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.59.34%20(1).jpeg" />
+  <img src="https://github.com/eriksoaress/StarFlow/blob/main/imagens/imgReadme6.jpeg" />
 </p>
 
 

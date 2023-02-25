@@ -56,6 +56,7 @@ Após instalar as biliotecas externas, entre pelo terminal na pasta que você ex
 <h1> Modelo físico do jogo </h1>
 <h3> Estrela </h3>
 <p>Criamos uma mecânica para que a estrela seja lançada de forma inspirada no famoso jogo Angry Birds, portanto é necessário puxar a estrela para definir o ângulo e velocidade que essa tomará em seu lançamento. Calculamos o vetor entre a posição atual da estrela e sua posição inicial para definir o ângulo e a velocidade, após isso calculamos o vetor unitário para caso o valor da velocidade ultrapasse 100 (limite definido), nós possamos aplicar que esse sairá com a sua velocidade correspondente ao valor máximo. </p>
+<img align="center" src="https://github.com/eriksoaress/StarFlow/blob/main/imagens/imgReadme7.jpg" alt="Nome da imagem" width:100 >
 
 <h3> Planetas </h3>
 <p>A gravidade de um planeta é um fenômeno físico que ocorre devido à atração gravitacional exercida pelo planeta sobre os objetos próximos a ele. A intensidade da força gravitacional depende da massa do planeta e da distância entre o planeta e o objeto. A lei da gravitação universal de Isaac Newton descreve essa relação matematicamente por meio das seguintes equações:

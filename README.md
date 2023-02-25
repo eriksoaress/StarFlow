@@ -29,7 +29,7 @@ Clique em Code
 <h3>Passo 3</h3>
 <p>Baixe o arquivo zipado</p>
 
-<img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.18.07.jpeg" alt="Nome da imagem" width="500">
+<img src="https://github.com/eriksoaress/StarFlow/blob/fernandovs4-patch-1/WhatsApp%20Image%202023-02-22%20at%2021.59.14.jpeg" alt="Nome da imagem" width="500">
 
 <h3> Passo 4</h3>
 Após baixar, descompacte em um local de sua preferência. 
@@ -68,11 +68,12 @@ No caso do nosso jogo, fizemos algumas simplificações para conseguir represent
 O valor de G foi obtido através de testes, de forma a deixar essa constante o mais próximo da percepção do modelo físico real de forças gravitacionais provocadas por planetas.
 Foi utilizado, para os cálculos, vetores, que vão da estrela até os planetas. A obtenção desses vetores foi obtida através da subtração de vetores(o vetor posição da estrela menos o vetor posição dos planetas).
 A imagem abaixo mostra como foi feita essa operação em PyGame,
- [imagem]
+<img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.18.07.jpeg" alt="Nome da imagem" width="500">
+
 
 <h3>Nuvem de poeira</h3>
 <p> Modelamos a nuvem de poeira simulando um atrito. Quando a estrela passa pela nuvem, a velocidade da estela sofre uma alteração no seu módul. Assim, a gente construiu um sistema que simula uma desaceleração. Essa parte do código pode ser vista abaixo:
- [imagem]
+<img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" alt="Nome da imagem" width="500">
 
 
 

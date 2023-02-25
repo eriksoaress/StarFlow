@@ -57,28 +57,25 @@ Após instalar o pygame, entre pelo terminal na pasta que você extraiu o jogo e
 <h3> Planetas </h3>
 <p>A gravidade de um planeta é um fenômeno físico que ocorre devido à atração gravitacional exercida pelo planeta sobre os objetos próximos a ele. A intensidade da força gravitacional depende da massa do planeta e da distância entre o planeta e o objeto. A lei da gravitação universal de Isaac Newton descreve essa relação matematicamente por meio das seguintes equações:
 
-F = G * (m1 * m2) / r^2
+$$
+ F = G * (m1 * m2) / r^2
+$$
 
 onde F é a força gravitacional entre dois objetos, G é a constante gravitacional, m1 e m2 são as massas dos objetos e r é a distância entre os objetos.
 No caso do nosso jogo, fizemos algumas simplificações para conseguir representar o modelo mais próximo da realidade. Para isso, usamos uma constante G que representa G*(m1*m3), na imagem abaixo, está representando essa constante. 
 
 [imagem]
 O valor de G foi obtido através de testes, de forma a deixar essa constante o mais próximo da percepção do modelo físico real de forças gravitacionais provocadas por planetas.
-Foi utilizado, para o  cálculo, 
+Foi utilizado, para os cálculos, vetores, que vão da estrela até os planetas. A obtenção desses vetores foi obtida através da subtração de vetores(o vetor posição da estrela menos o vetor posição dos planetas).
+A imagem abaixo mostra como foi feita essa operação em PyGame,
+ [imagem]
 
-No caso de um planeta, podemos considerar que sua massa é muito maior do que a massa de qualquer objeto que esteja próximo a ele, como um objeto em sua superfície. Nesse caso, podemos simplificar a equação da seguinte forma:
+<h3>Nuvem de poeira</h3>
+<p> Modelamos a nuvem de poeira simulando um atrito. Quando a estrela passa pela nuvem, a velocidade da estela sofre uma alteração no seu módul. Assim, a gente construiu um sistema que simula uma desaceleração. Essa parte do código pode ser vista abaixo:
+ [imagem]
 
-F = (G * M * m) / r^2
 
-onde F é a força gravitacional, G é a constante gravitacional, M é a massa do planeta, m é a massa do objeto e r é a distância entre o objeto e o centro do planeta.
 
-Podemos ainda descrever a aceleração gravitacional em um ponto próximo à superfície do planeta por meio da seguinte equação:
-
-g = (G * M) / r^2
-
-onde g é a aceleração gravitacional no ponto, G é a constante gravitacional, M é a massa do planeta e r é o raio do planeta. Essa equação nos mostra que a aceleração gravitacional é diretamente proporcional à massa do planeta e inversamente proporcional ao quadrado da distância do objeto ao centro do planeta.
-
-Essas equações nos permitem calcular a força gravitacional e a aceleração gravitacional em qualquer ponto próximo a um planeta, desde que conheçamos a massa do planeta e a distância do objeto ao seu centro. Elas são importantes para entender vários fenômenos astronômicos e para projetar sistemas de navegação espacial.
 
  
 <h3>Autores:</h3>

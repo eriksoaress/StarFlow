@@ -22,7 +22,7 @@ Então, prepare-se para uma jornada pelo espaço sideral e mostre suas habilidad
 <h2> Como rodar o jogo</h2>
 O jogo StarFlow funciona rodando o código python. Para jogar, é necessário baixar os arquivos neste repositório, ter o python instalado em sua máquina. É necessário também instalar a biblioteca pygame. Segue como fazer os procedimentos descrito acima:
 <h3>Passo 1</h3>
-<p>Entre no repositório do [StarFlow]("https://github.com/eriksoaress/StarFlow/")</p>
+<p>Entre no repositório do StarFlow("https://github.com/eriksoaress/StarFlow/")</p>
 <h3>Passo 2</h3> 
 Clique em Code
 <img src="https://github.com/eriksoaress/StarFlow/blob/fernandovs4-patch-1/WhatsApp%20Image%202023-02-22%20at%2021.56.23.jpeg" alt="Nome da imagem" width="500">
@@ -64,7 +64,7 @@ $$
 onde F é a força gravitacional entre dois objetos, G é a constante gravitacional, m1 e m2 são as massas dos objetos e r é a distância entre os objetos.
 No caso do nosso jogo, fizemos algumas simplificações para conseguir representar o modelo mais próximo da realidade. Para isso, usamos uma constante G que representa G*(m1*m3), na imagem abaixo, está representando essa constante. 
 
-<img src = "https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" alt = "" width:500>
+<img src = "https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" alt = "" width:300>
 O valor de G foi obtido através de testes, de forma a deixar essa constante o mais próximo da percepção do modelo físico real de forças gravitacionais provocadas por planetas.
 Foi utilizado, para os cálculos, vetores, que vão da estrela até os planetas. A obtenção desses vetores foi obtida através da subtração de vetores(o vetor posição da estrela menos o vetor posição dos planetas).
 A imagem abaixo mostra como foi feita essa operação em PyGame,
@@ -76,6 +76,9 @@ A imagem abaixo mostra como foi feita essa operação em PyGame,
 <img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" alt="Nome da imagem" width="500">
 
 
+<p align="center">
+  <img src="https://github.com/eriksoaress/StarFlow/blob/main/WhatsApp%20Image%202023-02-24%20at%2021.13.06.jpeg" />
+</p>
 
 
  

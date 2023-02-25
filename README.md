@@ -52,7 +52,7 @@ Após instalar as biliotecas externas, entre pelo terminal na pasta que você ex
 </p>
  <h4>O alvo e sistema de pontuações</h4>
  <p> O alvo consiste em um objeto, uma nave. Toda vez que a estrela atinge o alvo, você ganha um ponto. Se erra, perde um ponto. Se acerta 3 vezes em seguida, ganha uma vida(se tiver vidas faltando). O jogo consiste em conseguir a maior pontuação. Se você perder todas as suas vidas, o jogo acaba. Desafie seus amigos e veja quem consegue a melhor pontuação!
- <video src="https://github.com/eriksoaress/StarFlow/blob/main/imagens/StarFlow_gif.gif" autoplay loop width="300" height="200"></video>
+
 <h1> Modelo físico do jogo </h1>
 <h3> Estrela </h3>
 <p>Criamos uma mecânica para que a estrela seja lançada de forma inspirada no famoso jogo Angry Birds, portanto é necessário puxar a estrela para definir o ângulo e velocidade que essa tomará em seu lançamento. Calculamos o vetor entre a posição atual da estrela e sua posição inicial para definir a direção e a velocidade, pegamos o unitário desse vetor e multiplicamos pelo módulo do mesmo vetor, com o fito de poder limitar a velocidade( acima de 100px, a velocidade é setada em 100). Segue a imagem abaixo mostrando essa parte.

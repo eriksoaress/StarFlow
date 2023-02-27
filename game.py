@@ -270,15 +270,30 @@ def desenha(window: pygame.Surface, assets, state):
         # 1 - Verifica se o mouse está sobre o nome da skin
         # 2 - Verifica se o botão esquerdo do mouse está pressionado
         # 3 - Troca a skin
-        
-        estrelas = [estrela_azul, estrela_ventos, estrela_mario, estrela_rosa, estrela_vermelha, estrela_padrao]
-        estrelas_nomes = ['estrela_azul', 'estrela_ventos', 'estrela_mario', 'estrela_rosa', 'estrela_vermelha', 'estrela_padrao']
-        posicoes = [posicao_azul, posicao_ventos, posicao_mario, posicao_rosa, posicao_vermelha, posicao_padrao]
-        for i in range(len(estrelas)):
-            if posicoes[i].collidepoint(pygame.mouse.get_pos()):
-                estrelas[i] = fonte.render(str(estrelas_nomes[i]), True, (255,0,0))
-                if pygame.mouse.get_pressed()[0]:
-                    troca_skin(estrelas_nomes[i], assets, state)
+        if posicao_azul.collidepoint(pygame.mouse.get_pos()):
+            estrela_azul = fonte.render('Estrela Azul', True, (255,0,0))
+            if pygame.mouse.get_pressed()[0]:
+                troca_skin('estrela_azul', assets, state)
+        if posicao_ventos.collidepoint(pygame.mouse.get_pos()):
+            estrela_ventos = fonte.render('Estrela Ventos', True, (255,0,0))
+            if pygame.mouse.get_pressed()[0]:
+                troca_skin('estrela_ventos',assets,state)
+        if posicao_mario.collidepoint(pygame.mouse.get_pos()):
+            estrela_mario = fonte.render('Estrela Mario', True, (255,0,0))
+            if pygame.mouse.get_pressed()[0]:
+                troca_skin('estrela_mario',assets, state)
+        if posicao_rosa.collidepoint(pygame.mouse.get_pos()):
+            estrela_rosa = fonte.render('Estrela Rosa', True, (255,0,0))
+            if pygame.mouse.get_pressed()[0]:
+                troca_skin('estrela_rosa', assets, state)
+        if posicao_vermelha.collidepoint(pygame.mouse.get_pos()):
+            estrela_vermelha = fonte.render('Estrela Vermelha', True, (255,0,0))
+            if pygame.mouse.get_pressed()[0]:
+                troca_skin('estrela_vermelha',assets, state)
+        if posicao_padrao.collidepoint(pygame.mouse.get_pos()):
+            estrela_padrao = fonte.render('Estrela Padrao', True, (255,0,0))
+            if pygame.mouse.get_pressed()[0]:
+                troca_skin('estrela_padrao',assets,state)
                 
             
     
